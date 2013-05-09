@@ -46,18 +46,8 @@ void engine_init_sets(int sizes[3], const char *default_font)
 {
 	PangoFontDescription *font =
 		pango_font_description_from_string(default_font);
-	for (int i = 0; i < 3; ++i) {
-		int length = sizes[i];
-		sets[i].layout_list = calloc(length, sizeof(PangoLayout *));
-		sets[i].length = length;
-		for (int j = 0; j < length; ++j) {
-			sets[i].layout_list[j] =
-				pango_cairo_create_layout(context);
-			pango_layout_set_font_description(
-					sets[i].layout_list[j], font);
-			/* pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END); */
-		}
-	}
+	for (int i = 0; i < 3; ++i)
+		init_set(&sets[i], sizes[i], font);
 }
 
 static PangoLayout *get_layout(int id)
