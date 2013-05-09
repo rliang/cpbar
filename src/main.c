@@ -40,6 +40,13 @@ void main_loop()
 	}
 }
 
+void terminate()
+{
+	options_terminate();
+	engine_terminate();
+	xcbwindow_terminate();
+}
+
 int main(int argc, char *argv[])
 {
 	options_init(argc, argv);
