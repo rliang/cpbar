@@ -22,7 +22,8 @@ Input must start with the identifier and a space.
 	4 updated info
 
 Result:
-	\[my info\]\[\]			\[center info\]		\[\]\[info on right\]\[updated info\]
+
+	[my info][]			[center info]		[][info on right][updated info]
 
 Options
 -------
