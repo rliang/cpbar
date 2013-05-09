@@ -27,6 +27,19 @@ bool init(int argc, char *argv[])
 	xcbwindow_flush();
 }
 
+void main_loop()
+{
+	int id;
+	char buffer[BUFSIZ];
+	for (;;) {
+		if (scanf("%d %s", &id, buffer) != 2)
+			continue;
+		buffer[BUFSIZ - 1] = '\0';
+		engine_update(buffer, id);
+		xcbwindow_flush();
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	options_init(argc, argv);
