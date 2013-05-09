@@ -28,18 +28,33 @@ Options
 -------
 
 	-m --bottom
+
 Place bar on the bottom of the screen.
+
 	-g --height HEIGHT
+
 Set bar height to HEIGHT. Default 16
+
 	-l --left
+
 LEFT Set first LEFT identifiers to the left part of the bar. Default 0
+
 	-r --right
+
 RIGHT Set the following RIGHT identifiers to the right part of the bar. Default 0
+
 	-c --center
+
 CENTER Set the last CENTER identifiers to the center part of the bar. Default 0
+
 	-t --font
+
 FONT Set the default font to FONT. Default Sans-Serif Bold 9
+
 	-f --foreground
+
 FOREGROUND Set the default foreground color to FOREGROUND. Default #FFFFFF
+
 	-b --background
+
 BACKGROUND Set the default background color to BACKGROUND. Default #000000
