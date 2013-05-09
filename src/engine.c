@@ -19,28 +19,11 @@ static double default_foreground[3];
 static double default_background[3];
 static struct layout_set sets[3];
 
-void engine_init(cairo_surface_t *surface, int width, int height,
-		int sizes[3], const char *default_font,
-		const char *foreground, const char *background)
+void engine_init(cairo_surface_t *surface, int width, int height)
 {
 	context = cairo_create(surface);
 	canvas_width = width;
 	canvas_height = height;
-	parse_color(foreground, default_foreground);
-	parse_color(background, default_background);
-	PangoFontDescription *font =
-		pango_font_description_from_string(default_font);
-	for (int i = 0; i < 3; ++i) {
-		int length = sizes[i];
-		sets[i].layout_list = calloc(length, sizeof(PangoLayout *));
-		sets[i].length = length;
-		for (int j = 0; j < length; ++j) {
-			PangoLayout *layout = sets[i].layout_list[j] =
-				pango_cairo_create_layout(context);
-			pango_layout_set_font_description(layout, font);
-			/* pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END); */
-		}
-	}
 }
 
 void engine_init_sets(int sizes[3], const char *default_font,
