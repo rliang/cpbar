@@ -108,11 +108,11 @@ static void draw_sets()
 
 void clean_canvas()
 {
-	 cairo_set_source_rgba(context,
+	cairo_set_source_rgba(context,
 			 default_background[0],
 			 default_background[1],
 			 default_background[2], 1);
-	 cairo_paint(context);
+	cairo_paint(context);
 }
 
 void engine_update(char *string, int id)
