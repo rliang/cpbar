@@ -19,6 +19,19 @@ static xcb_visualtype_t *get_root_visual_type(xcb_screen_t *s)
 	return NULL;
 }
 
+static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
+{
+	xcb_create_window(xcb_window.connection, XCB_COPY_FROM_PARENT,
+			xcb_window.window, s->root, x, y,
+			xcb_window.window_width, xcb_window.window_height,
+			0, XCB_WINDOW_CLASS_INPUT_OUTPUT,
+			s->root_visual, XCB_CW_EVENT_MASK,
+			(const uint32_t []){ [0] = XCB_EVENT_MASK_EXPOSURE });
+	xcb_change_window_attributes(xcb_window.connection, xcb_window.window,
+			XCB_CW_OVERRIDE_REDIRECT, (const uint32_t []){ 1 });
+	xcb_map_window(xcb_window.connection, xcb_window.window);
+}
+
 void xcbwindow_init(uint16_t height, bool on_bottom)
 {
 	xcb_window.connection = xcb_connect(NULL, NULL);
