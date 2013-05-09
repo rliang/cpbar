@@ -6,7 +6,7 @@
 
 #include "options.h"
 #include "xcbwindow.h"
-#include "cairopango.h"
+#include "engine.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	cairo_surface_t *surface = cairo_xcb_surface_create(
 			xcb_window.connection, xcb_window.window,
 			xcb_window.visualtype, window_width, window_height);
-	cairopango_init(surface, window_width, window_height, options.sizes,
+	engine_init(surface, window_width, window_height, options.sizes,
 			options.default_font, options.default_foreground,
 			options.default_background);
 	xcbwindow_flush();
@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
 	char buffer[BUFSIZ];
 	for (;;) {
 		scanf("%d %s", &id, buffer);
-		cairopango_update(buffer, id);
+		engine_update(buffer, id);
 		xcbwindow_flush();
 	}
 	options_terminate();
-	cairopango_terminate();
+	engine_terminate();
 	xcbwindow_terminate();
 	return 0;
 }

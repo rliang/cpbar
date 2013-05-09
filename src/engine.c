@@ -1,6 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "cairopango.h"
+#include "engine.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +19,7 @@ static double default_foreground[3];
 static double default_background[3];
 static struct layout_set sets[3];
 
-void cairopango_init(cairo_surface_t *surface, int width, int height,
+void engine_init(cairo_surface_t *surface, int width, int height,
 		int sizes[3], const char *default_font,
 		const char *foreground, const char *background)
 {
@@ -108,7 +108,7 @@ void clean_canvas()
 	 cairo_paint(context);
 }
 
-void cairopango_update(char *string, int id)
+void engine_update(char *string, int id)
 {
 	if (id < 0)
 		return;
@@ -120,7 +120,7 @@ void cairopango_update(char *string, int id)
 	draw_sets();
 }
 
-void cairopango_terminate()
+void engine_terminate()
 {
 	cairo_destroy(context);
 	for (int i = 0; i < 3; ++i) {
