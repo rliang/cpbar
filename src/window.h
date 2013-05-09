@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
-#ifndef window_H
-#define window_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include <xcb/xcb.h>
 #include <stdbool.h>
@@ -20,4 +20,4 @@ void window_init(uint16_t height, bool on_bottom);
 void window_flush();
 void window_terminate();
 
-#endif /* window_H */
+#endif /* WINDOW_H */
