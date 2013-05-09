@@ -8,9 +8,9 @@ Usage
 
 	pbar [-m] [-g HEIGHT] [-l LEFT] [-r RIGHT] [-c CENTER] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
 
-There are allocated LEFT + RIGHT + CENTER identifiers at runtime.
-Starting from zero, for the left part of the panel there are LEFT identifiers,
-then the next RIGHT for the right part, and the remaining CENTER for the center.
+There are allocated `LEFT + RIGHT + CENTER` identifiers at runtime.
+Starting from zero, for the left part of the panel there are `LEFT` identifiers,
+then the next `RIGHT` for the right part, and the remaining `CENTER` for the center.
 For each part, text is displayed from left to right.
 Input must start with the identifier and a space.
 
@@ -28,34 +28,18 @@ Result:
 Options
 -------
 
-	-m --bottom
+`-m --bottom` Place bar on the bottom of the screen.
 
-Place bar on the bottom of the screen.
+`-g --height` HEIGHT` Set bar height to HEIGHT. Default 16
 
-	-g --height HEIGHT
+`-l --left LEFT` Set first LEFT identifiers to the left part of the bar. Default 0
 
-Set bar height to HEIGHT. Default 16
+`-r --right RIGHT` Set the following RIGHT identifiers to the right part of the bar. Default 0
 
-	-l --left LEFT
+`-c --center CENTER` Set the last CENTER identifiers to the center part of the bar. Default 0
 
-Set first LEFT identifiers to the left part of the bar. Default 0
+`-t --font FONT` Set the default font to FONT. Default Sans-Serif Bold 9
 
-	-r --right RIGHT
+`-f --foreground FOREGROUND` Set the default foreground color to FOREGROUND. Default #FFFFFF
 
-Set the following RIGHT identifiers to the right part of the bar. Default 0
-
-	-c --center CENTER
-
-Set the last CENTER identifiers to the center part of the bar. Default 0
-
-	-t --font FONT
-
-Set the default font to FONT. Default Sans-Serif Bold 9
-
-	-f --foreground FOREGROUND
-
-Set the default foreground color to FOREGROUND. Default #FFFFFF
-
-	-b --background BACKGROUND
-
-Set the default background color to BACKGROUND. Default #000000
+`-b --background BACKGROUND` Set the default background color to BACKGROUND. Default #000000
