@@ -73,7 +73,7 @@ static int get_set_width(struct layout_set *set)
 	return total;
 }
 
-void draw_text(PangoLayout *layout, int x, int text_height)
+static void draw_text(PangoLayout *layout, int x, int text_height)
 {
 	cairo_set_source_rgba(context,
 			default_foreground[0],
@@ -114,7 +114,7 @@ static void draw_sets()
 	draw_set(&sets[2], center_begin, center_end);
 }
 
-void clean_canvas()
+static void clean_canvas()
 {
 	cairo_set_source_rgba(context,
 			 default_background[0],

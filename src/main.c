@@ -8,7 +8,7 @@
 #include "window.h"
 #include "engine.h"
 
-bool init(int argc, char *argv[])
+static bool init(int argc, char *argv[])
 {
 	options_init(argc, argv);
 	window_init(options.bar_height, options.bar_on_bottom);
@@ -25,7 +25,7 @@ bool init(int argc, char *argv[])
 	return true;
 }
 
-void main_loop()
+static void main_loop()
 {
 	int id;
 	char buffer[BUFSIZ];
@@ -38,7 +38,7 @@ void main_loop()
 	}
 }
 
-void terminate()
+static void terminate()
 {
 	options_terminate();
 	engine_terminate();
