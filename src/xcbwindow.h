@@ -11,6 +11,7 @@ struct xcbwindow {
 	xcb_visualtype_t *visualtype;
 	xcb_window_t window;
 	uint16_t window_width;
+	uint16_t window_height;
 };
 
 extern struct xcbwindow xcb_window;

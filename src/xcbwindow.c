@@ -27,6 +27,7 @@ void xcbwindow_init(uint16_t height, bool on_bottom)
 	xcb_window.visualtype = get_root_visual_type(s);
 	xcb_window.window = xcb_generate_id(xcb_window.connection);
 	xcb_window.window_width = s->width_in_pixels;
+	xcb_window.window_height = height;
 	xcb_create_window(xcb_window.connection, XCB_COPY_FROM_PARENT,
 			xcb_window.window, s->root,
 			0, on_bottom ? s->height_in_pixels - height : 0,
