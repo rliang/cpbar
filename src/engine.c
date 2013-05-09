@@ -53,6 +53,8 @@ void engine_init_sets(const int sizes[3], const char *default_font)
 static PangoLayout *get_layout(int id)
 {
 	for (int i = 0; i < 3; ++i) {
+		if (id < 0)
+			break;
 		if (id < sets[i].length)
 			return sets[i].layout_list[id];
 		id -= sets[i].length;
@@ -123,8 +125,6 @@ void clean_canvas()
 
 void engine_update(char *string, int id)
 {
-	if (id < 0)
-		return;
 	PangoLayout *layout = get_layout(id);
 	if (layout == NULL)
 		return;
