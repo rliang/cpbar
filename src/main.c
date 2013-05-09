@@ -5,7 +5,7 @@
 #include <cairo-xcb.h>
 
 #include "options.h"
-#include "xcbwindow.h"
+#include "window.h"
 #include "engine.h"
 
 bool init(int argc, char *argv[])
