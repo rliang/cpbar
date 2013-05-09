@@ -1,12 +1,12 @@
 /* See LICENSE file for copyright and license details. */
 
-#ifndef XCBWINDOW_H
-#define XCBWINDOW_H
+#ifndef window_H
+#define window_H
 
 #include <xcb/xcb.h>
 #include <stdbool.h>
 
-struct xcbwindow {
+struct window {
 	xcb_connection_t *connection;
 	xcb_visualtype_t *visualtype;
 	xcb_window_t window;
@@ -14,10 +14,10 @@ struct xcbwindow {
 	uint16_t window_height;
 };
 
-extern struct xcbwindow xcb_window;
+extern struct window xcb_window;
 
-void xcbwindow_init(uint16_t height, bool on_bottom);
-void xcbwindow_flush();
-void xcbwindow_terminate();
+void window_init(uint16_t height, bool on_bottom);
+void window_flush();
+void window_terminate();
 
-#endif /* XCBWINDOW_H */
+#endif /* window_H */

@@ -11,7 +11,7 @@
 bool init(int argc, char *argv[])
 {
 	options_init(argc, argv);
-	xcbwindow_init(options.bar_height, options.bar_on_bottom);
+	window_init(options.bar_height, options.bar_on_bottom);
 
 	int window_width = xcb_window.window_width;
 	int window_height = options.bar_height;
@@ -24,7 +24,7 @@ bool init(int argc, char *argv[])
 			options.default_foreground, options.default_background);
 	engine_init_sets(options.sizes, options.default_font);
 
-	xcbwindow_flush();
+	window_flush();
 
 	return true;
 }
@@ -38,7 +38,7 @@ void main_loop()
 			continue;
 		buffer[BUFSIZ - 1] = '\0';
 		engine_update(buffer, id);
-		xcbwindow_flush();
+		window_flush();
 	}
 }
 
@@ -46,7 +46,7 @@ void terminate()
 {
 	options_terminate();
 	engine_terminate();
-	xcbwindow_terminate();
+	window_terminate();
 }
 
 int main(int argc, char *argv[])

@@ -2,7 +2,7 @@
 
 #include "window.h"
 
-struct xcbwindow xcb_window;
+struct window xcb_window;
 
 static xcb_visualtype_t *get_root_visual_type(xcb_screen_t *s)
 {
@@ -32,7 +32,7 @@ static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
 	xcb_map_window(xcb_window.connection, xcb_window.window);
 }
 
-void xcbwindow_init(uint16_t height, bool on_bottom)
+void window_init(uint16_t height, bool on_bottom)
 {
 	xcb_window.connection = xcb_connect(NULL, NULL);
 
@@ -50,12 +50,12 @@ void xcbwindow_init(uint16_t height, bool on_bottom)
 	create_window(s, window_x, window_y);
 }
 
-void xcbwindow_flush()
+void window_flush()
 {
 	xcb_flush(xcb_window.connection);
 }
 
-void xcbwindow_terminate()
+void window_terminate()
 {
 	xcb_destroy_window(xcb_window.connection, xcb_window.window);
 	xcb_disconnect(xcb_window.connection);
