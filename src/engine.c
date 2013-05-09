@@ -103,7 +103,7 @@ static void draw_sets()
 
 	int right_begin = canvas_width - get_set_width(&sets[1]);
 	int right_end = canvas_width;
-	draw_set(&sets[1], right_width, canvas_width);
+	draw_set(&sets[1], right_begin, right_end);
 
 	int center_begin = (canvas_width - get_set_width(&sets[2])) / 2;
 	if (center_begin < left_end)
