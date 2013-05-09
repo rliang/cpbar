@@ -42,7 +42,7 @@ static void init_set(struct layout_set *set, int length,
 	}
 }
 
-void engine_init_sets(int sizes[3], const char *default_font)
+void engine_init_sets(const int sizes[3], const char *default_font)
 {
 	PangoFontDescription *font =
 		pango_font_description_from_string(default_font);
