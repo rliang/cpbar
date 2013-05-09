@@ -97,13 +97,19 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 
 static void draw_sets()
 {
-	int lower_limit = get_set_width(&sets[0]);
-	draw_set(&sets[0], 0, lower_limit);
-	int upper_limit = canvas_width - get_set_width(&sets[1]);
-	draw_set(&sets[1], upper_limit, canvas_width);
-	int center_w = get_set_width(&sets[2]);
-	int center_x = (canvas_width - center_w) / 2;
-	draw_set(&sets[2], center_x, upper_limit);
+	int left_begin = 0;
+	int left_end = get_set_width(&sets[0]);
+	draw_set(&sets[0], left_begin, left_end);
+
+	int right_begin = canvas_width - get_set_width(&sets[1]);
+	int right_end = canvas_width;
+	draw_set(&sets[1], right_width, canvas_width);
+
+	int center_begin = (canvas_width - get_set_width(&sets[2])) / 2;
+	if (center_begin < left_end)
+		center_begin = left_end;
+	int center_end = right_begin;
+	draw_set(&sets[2], center_begin, center_end);
 }
 
 void clean_canvas()
