@@ -13,12 +13,12 @@ bool init(int argc, char *argv[])
 	options_init(argc, argv);
 	window_init(options.bar_height, options.bar_on_bottom);
 
-	int window_width = xcb_window.window_width;
+	int window_width = window.window_width;
 	int window_height = options.bar_height;
 
 	cairo_surface_t *surface = cairo_xcb_surface_create(
-			xcb_window.connection, xcb_window.window,
-			xcb_window.visualtype, window_width, window_height);
+			window.connection, window.window,
+			window.visualtype, window_width, window_height);
 
 	engine_init_canvas(surface, window_width, window_height,
 			options.default_foreground, options.default_background);

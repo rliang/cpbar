@@ -14,7 +14,7 @@ struct window {
 	uint16_t window_height;
 };
 
-extern struct window xcb_window;
+extern struct window window;
 
 void window_init(uint16_t height, bool on_bottom);
 void window_flush();
