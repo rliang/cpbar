@@ -81,7 +81,7 @@ void options_init(int argc, char **argv)
 				"\t-c --center CENTER\t\tSet the last CENTER identifiers to the center part of the bar\n"
 				"\t-t --font FONT\t\t\tSet the default font to FONT\n"
 				"\t-f --foreground FOREGROUND\tSet the default foreground color to FOREGROUND, in format #rrggbb\n"
-				"\t-b --background FOREGROUND\tSet the default background color to BACKGROUND, in format #rrggbb\n"
+				"\t-b --background BACKGROUND\tSet the default background color to BACKGROUND, in format #rrggbb\n"
 				"\nIdentifiers are integers starting from 0, in the order Left->Right->Center, each of these sections being drawn left-to-right.\n"
 				"Input must start with the identifier and a space. Example:\n"
 				"\t%s -l 2 -r 3 -c 1\n"
