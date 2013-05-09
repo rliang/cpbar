@@ -1,3 +1,5 @@
+/* See LICENSE file for copyright and license details. */
+
 #include "xcbwindow.h"
 
 struct xcbwindow xcb_window;

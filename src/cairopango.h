@@ -1,3 +1,5 @@
+/* See LICENSE file for copyright and license details. */
+
 #ifndef CAIROPANGO_H
 #define CAIROPANGO_H
 

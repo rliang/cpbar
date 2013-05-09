@@ -1,3 +1,5 @@
+/* See LICENSE file for copyright and license details. */
+
 #ifndef XCBWINDOW_H
 #define XCBWINDOW_H
 
