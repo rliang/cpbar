@@ -19,7 +19,7 @@ static double default_foreground[3];
 static double default_background[3];
 static struct layout_set sets[3];
 
-void engine_init(cairo_surface_t *surface, int width, int height,
+void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 		const char *foreground, const char *background)
 {
 	context = cairo_create(surface);

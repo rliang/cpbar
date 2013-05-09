@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	cairo_surface_t *surface = cairo_xcb_surface_create(
 			xcb_window.connection, xcb_window.window,
 			xcb_window.visualtype, window_width, window_height);
-	engine_init(surface, window_width, window_height,
+	engine_init_canvas(surface, window_width, window_height,
 			options.default_foreground, options.default_foreground);
 	engine_init_sets(options.sizes, options.default_font);
 	xcbwindow_flush();
