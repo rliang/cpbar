@@ -25,6 +25,8 @@ bool init(int argc, char *argv[])
 	engine_init_sets(options.sizes, options.default_font);
 
 	xcbwindow_flush();
+
+	return true;
 }
 
 void main_loop()
