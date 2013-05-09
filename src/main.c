@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	xcbwindow_flush();
 	int id;
 	char buffer[BUFSIZ];
-	for(;;) {
+	for (;;) {
 		scanf("%d %s", &id, buffer);
 		cairopango_update(buffer, id);
 		xcbwindow_flush();

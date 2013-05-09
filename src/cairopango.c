@@ -36,7 +36,7 @@ void cairopango_init(cairo_surface_t *surface, int width, int height,
 			PangoLayout *layout = sets[i].layout_list[j] =
 				pango_cairo_create_layout(context);
 			pango_layout_set_font_description(layout, font);
-			/*pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END);*/
+			/* pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END); */
 		}
 	}
 }
