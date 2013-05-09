@@ -21,7 +21,7 @@ bool init(int argc, char *argv[])
 			xcb_window.visualtype, window_width, window_height);
 
 	engine_init_canvas(surface, window_width, window_height,
-			options.default_foreground, options.default_foreground);
+			options.default_foreground, options.default_background);
 	engine_init_sets(options.sizes, options.default_font);
 
 	xcbwindow_flush();
