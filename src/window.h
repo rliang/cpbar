@@ -7,11 +7,11 @@
 #include <stdbool.h>
 
 struct window {
-	xcb_connection_t *connection;
-	xcb_visualtype_t *visualtype;
-	xcb_window_t window;
-	uint16_t window_width;
-	uint16_t window_height;
+	xcb_connection_t *xcb_connection;
+	xcb_visualtype_t *xcb_visualtype;
+	xcb_window_t xcb_window;
+	uint16_t width;
+	uint16_t height;
 };
 
 extern struct window window;
