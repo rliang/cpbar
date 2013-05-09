@@ -29,6 +29,19 @@ void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 	parse_color(background, default_background);
 }
 
+static void init_set(struct layout_set *set, int length,
+		PangoFontDescription *font)
+{
+	set->layout_list = calloc(length, sizeof(PangoLayout *));
+	set->length = length;
+	for (int j = 0; j < length; ++j) {
+		set->layout_list[j] =
+			pango_cairo_create_layout(context);
+		pango_layout_set_font_description(set->layout_list[j], font);
+		/* pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END); */
+	}
+}
+
 void engine_init_sets(int sizes[3], const char *default_font)
 {
 	PangoFontDescription *font =
