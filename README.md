@@ -20,7 +20,9 @@ the identifier and a space. e.g.:
 	5 center info
 	4 updated info
 
-Result: `[my info][]        [center info]        [][info on right][updated info]`
+Result:
+
+	[my info][]				[center info]		[][info on right][updated info]
 
 Options
 -------
