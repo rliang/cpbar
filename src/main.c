@@ -28,15 +28,17 @@ static bool init(int argc, char *argv[])
 
 static void main_loop()
 {
-	int id;
-	char string[BUFSIZ];
 	for (;;) {
 		char buffer[BUFSIZ];
+		int id;
+		char string[BUFSIZ];
+
 		if (fgets(buffer, BUFSIZ, stdin) == NULL)
 			continue;
 		if (!parse_input(buffer, &id, string, BUFSIZ))
 			continue;
-		puts(string);
+
+		string[BUFSIZ - 1] = '\0';
 		engine_update(string, id);
 		window_flush();
 	}
