@@ -12,12 +12,15 @@ struct layout_set {
 	int length;
 };
 
+static struct layout_set sets[3];
+
 static cairo_t *context;
+
 static int canvas_width;
 static int canvas_height;
+
 static double default_foreground[3];
 static double default_background[3];
-static struct layout_set sets[3];
 
 void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 		const char *foreground, const char *background)
