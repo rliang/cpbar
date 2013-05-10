@@ -23,15 +23,12 @@ static int canvas_height;
 static double default_foreground[3];
 static double default_background[3];
 
-void engine_init_canvas(cairo_surface_t *surface, int width, int height,
-		const char *foreground, const char *background)
+void engine_init_canvas(cairo_surface_t *surface, int width, int height)
 {
 	cairo_context = cairo_create(surface);
 	pango_context = pango_cairo_create_context(cairo_context);
 	canvas_width = width;
 	canvas_height = height;
-	parse_color(foreground, default_foreground);
-	parse_color(background, default_background);
 }
 
 static bool create_layout(PangoLayout **location)
@@ -53,11 +50,16 @@ static void init_set(struct layout_set *set, int length)
 		create_layout(&set->layout_list[j]);
 }
 
-void engine_init_sets(const int sizes[3], const char *default_font)
+void engine_init_sets(const int sizes[3], const char *default_font,
+		const char *foreground, const char *background)
 {
 	PangoFontDescription *font =
 		pango_font_description_from_string(default_font);
 	pango_context_set_font_description(pango_context, font);
+
+	parse_color(foreground, default_foreground);
+	parse_color(background, default_background);
+
 	for (int i = 0; i < 3; ++i)
 		init_set(&sets[i], sizes[i]);
 }
