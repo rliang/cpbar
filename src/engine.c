@@ -34,6 +34,15 @@ void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 	parse_color(background, default_background);
 }
 
+static bool create_layout(PangoLayout **location)
+{
+	if (*location != NULL)
+		g_object_unref(*location);
+	*location = pango_layout_new(pango_context);
+	pango_layout_set_ellipsize(*location, PANGO_ELLIPSIZE_END);
+	return true;
+}
+
 static void init_set(struct layout_set *set, int length)
 {
 	set->layout_list = calloc(length, sizeof(PangoLayout *));
