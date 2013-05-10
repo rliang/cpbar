@@ -41,6 +41,8 @@ static void init_set(struct layout_set *set, int length)
 	for (int j = 0; j < length; ++j) {
 		set->layout_list[j] =
 			pango_layout_new(pango_context);
+		pango_layout_set_ellipsize(set->layout_list[j],
+				PANGO_ELLIPSIZE_END);
 	}
 }
 
@@ -94,7 +96,7 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 		int width, height;
 		pango_layout_get_pixel_size(current, &width, &height);
 		pango_layout_set_width(current,
-				(upper_limit - lower_limit) * PANGO_SCALE);
+				(1 + upper_limit - lower_limit) * PANGO_SCALE);
 		draw_text(current, lower_limit, height);
 		lower_limit += width;
 	}
@@ -134,6 +136,8 @@ void engine_update(char *string, int id)
 	g_object_unref(*layout);
 	*layout = pango_layout_new(pango_context);
 	pango_layout_set_markup(*layout, string, -1);
+	pango_layout_set_ellipsize(*layout,
+			PANGO_ELLIPSIZE_END);
 	clean_canvas();
 	draw_sets();
 }
