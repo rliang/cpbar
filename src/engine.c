@@ -94,7 +94,7 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 		int width, height;
 		pango_layout_get_pixel_size(current, &width, &height);
 		pango_layout_set_width(current,
-				(1 + upper_limit - lower_limit) * PANGO_SCALE);
+				(upper_limit - lower_limit) * PANGO_SCALE);
 		draw_text(current, lower_limit, height);
 		lower_limit += width;
 	}
