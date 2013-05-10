@@ -11,7 +11,7 @@ Usage
 Starting from `0`, the first `LEFT` identifiers are allocated for the left part
 of the panel, then the next `RIGHT` for the right part, and the remaining
 `CENTER` for the center. Each part is drawn left-to-right. Input must start with
-the identifier and a space. e.g.:
+the identifier and a non-digit character. e.g.:
 
 	pbar --center 1 --left 2 --right 3
 	0 my info
