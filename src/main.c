@@ -36,6 +36,7 @@ static void main_loop()
 			continue;
 		if (!parse_input(buffer, &id, string, BUFSIZ))
 			continue;
+		puts(string);
 		engine_update(string, id);
 		window_flush();
 	}
