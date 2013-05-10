@@ -131,6 +131,8 @@ void engine_update(char *string, int id)
 	PangoLayout **layout = get_layout(id);
 	if (layout == NULL)
 		return;
+	g_object_unref(*layout);
+	*layout = pango_layout_new(pango_context);
 	pango_layout_set_markup(*layout, string, -1);
 	clean_canvas();
 	draw_sets();
