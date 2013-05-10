@@ -14,7 +14,7 @@ struct layout_set {
 
 static struct layout_set sets[3];
 
-static cairo_t *context;
+static cairo_t *cairo_context;
 
 static int canvas_width;
 static int canvas_height;
@@ -25,7 +25,7 @@ static double default_background[3];
 void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 		const char *foreground, const char *background)
 {
-	context = cairo_create(surface);
+	cairo_context = cairo_create(surface);
 	canvas_width = width;
 	canvas_height = height;
 	parse_color(foreground, default_foreground);
@@ -39,7 +39,7 @@ static void init_set(struct layout_set *set, int length,
 	set->length = length;
 	for (int j = 0; j < length; ++j) {
 		set->layout_list[j] =
-			pango_cairo_create_layout(context);
+			pango_cairo_create_layout(cairo_context);
 		pango_layout_set_ellipsize(set->layout_list[j],
 				PANGO_ELLIPSIZE_END);
 		pango_layout_set_font_description(set->layout_list[j], font);
@@ -79,13 +79,13 @@ static int get_set_width(struct layout_set *set)
 
 static void draw_text(PangoLayout *layout, int x, int text_height)
 {
-	cairo_set_source_rgba(context,
+	cairo_set_source_rgba(cairo_context,
 			default_foreground[0],
 			default_foreground[1],
 			default_foreground[2], 1);
-	cairo_move_to(context, x, (canvas_height - text_height) / 2);
-	pango_cairo_update_layout(context, layout);
-	pango_cairo_show_layout(context, layout);
+	cairo_move_to(cairo_context, x, (canvas_height - text_height) / 2);
+	pango_cairo_update_layout(cairo_context, layout);
+	pango_cairo_show_layout(cairo_context, layout);
 }
 
 static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
@@ -120,11 +120,11 @@ static void draw_sets()
 
 static void clean_canvas()
 {
-	cairo_set_source_rgba(context,
+	cairo_set_source_rgba(cairo_context,
 			 default_background[0],
 			 default_background[1],
 			 default_background[2], 1);
-	cairo_paint(context);
+	cairo_paint(cairo_context);
 }
 
 void engine_update(char *string, int id)
@@ -139,7 +139,7 @@ void engine_update(char *string, int id)
 
 void engine_terminate()
 {
-	cairo_destroy(context);
+	cairo_destroy(cairo_context);
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < sets[i].length; ++j)
 			g_object_unref(sets[i].layout_list[j]);
