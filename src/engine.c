@@ -41,7 +41,7 @@ static void init_set(struct layout_set *set, int length,
 	set->length = length;
 	for (int j = 0; j < length; ++j) {
 		set->layout_list[j] =
-			pango_cairo_create_layout(cairo_context);
+			pango_layout_new(pango_context);
 		pango_layout_set_ellipsize(set->layout_list[j],
 				PANGO_ELLIPSIZE_END);
 		pango_layout_set_font_description(set->layout_list[j], font);
@@ -52,6 +52,7 @@ void engine_init_sets(const int sizes[3], const char *default_font)
 {
 	PangoFontDescription *font =
 		pango_font_description_from_string(default_font);
+	pango_context_set_font_description(pango_context, font);
 	for (int i = 0; i < 3; ++i)
 		init_set(&sets[i], sizes[i], font);
 }
