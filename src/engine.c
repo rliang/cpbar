@@ -141,6 +141,7 @@ void engine_update(char *string, int id)
 void engine_terminate()
 {
 	cairo_destroy(cairo_context);
+	g_object_unref(pango_context);
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < sets[i].length; ++j)
 			g_object_unref(sets[i].layout_list[j]);
