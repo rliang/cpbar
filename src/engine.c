@@ -15,6 +15,7 @@ struct layout_set {
 static struct layout_set sets[3];
 
 static cairo_t *cairo_context;
+static PangoContext *pango_context;
 
 static int canvas_width;
 static int canvas_height;
@@ -26,6 +27,7 @@ void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 		const char *foreground, const char *background)
 {
 	cairo_context = cairo_create(surface);
+	pango_context = pango_cairo_create_context(cairo_context);
 	canvas_width = width;
 	canvas_height = height;
 	parse_color(foreground, default_foreground);
