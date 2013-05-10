@@ -47,12 +47,8 @@ static void init_set(struct layout_set *set, int length)
 {
 	set->layout_list = calloc(length, sizeof(PangoLayout *));
 	set->length = length;
-	for (int j = 0; j < length; ++j) {
-		set->layout_list[j] =
-			pango_layout_new(pango_context);
-		pango_layout_set_ellipsize(set->layout_list[j],
-				PANGO_ELLIPSIZE_END);
-	}
+	for (int j = 0; j < length; ++j)
+		create_layout(&set->layout_list[j]);
 }
 
 void engine_init_sets(const int sizes[3], const char *default_font)
@@ -142,11 +138,8 @@ void engine_update(char *string, int id)
 	PangoLayout **layout = get_layout(id);
 	if (layout == NULL)
 		return;
-	g_object_unref(*layout);
-	*layout = pango_layout_new(pango_context);
+	create_layout(layout);
 	pango_layout_set_markup(*layout, string, -1);
-	pango_layout_set_ellipsize(*layout,
-			PANGO_ELLIPSIZE_END);
 	clean_canvas();
 	draw_sets();
 }
