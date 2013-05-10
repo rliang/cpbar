@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <cairo-xcb.h>
 
 #include "options.h"
@@ -36,10 +37,10 @@ static void main_loop()
 		if (fgets(buffer, BUFSIZ, stdin) == NULL)
 			continue;
 		buffer[strlen(buffer) - 1] = '\0';
+
 		if (!parse_input(buffer, &id, string, BUFSIZ))
 			continue;
 
-		string[BUFSIZ - 1] = '\0';
 		engine_update(string, id);
 		window_flush();
 	}
