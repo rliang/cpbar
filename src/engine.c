@@ -35,10 +35,13 @@ static bool create_layout(PangoLayout **location)
 {
 	if (location == NULL)
 		return false;
+
 	if (*location != NULL)
 		g_object_unref(*location);
 	*location = pango_layout_new(pango_context);
+
 	pango_layout_set_ellipsize(*location, PANGO_ELLIPSIZE_END);
+
 	return true;
 }
 
@@ -46,6 +49,7 @@ static void init_set(struct layout_set *set, int length)
 {
 	set->layout_list = calloc(length, sizeof(PangoLayout *));
 	set->length = length;
+
 	for (int j = 0; j < length; ++j)
 		create_layout(&set->layout_list[j]);
 }
@@ -94,6 +98,7 @@ static void draw_text(PangoLayout *layout, int x, int text_height)
 			default_foreground[1],
 			default_foreground[2], 1);
 	cairo_move_to(cairo_context, x, (canvas_height - text_height) / 2);
+
 	pango_cairo_update_layout(cairo_context, layout);
 	pango_cairo_show_layout(cairo_context, layout);
 }
@@ -102,10 +107,12 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 {
 	for (int i = 0; i < set->length; ++i) {
 		PangoLayout *current = set->layout_list[i];
+
 		int width, height;
 		pango_layout_get_pixel_size(current, &width, &height);
 		pango_layout_set_width(current,
 				(1 + upper_limit - lower_limit) * PANGO_SCALE);
+
 		draw_text(current, lower_limit, height);
 		lower_limit += width;
 	}
@@ -140,8 +147,10 @@ static void clean_canvas()
 void engine_update(char *string, int id)
 {
 	PangoLayout **layout_location = get_layout_location(id);
+
 	create_layout(layout_location);
 	pango_layout_set_markup(*layout_location, string, -1);
+
 	clean_canvas();
 	draw_sets();
 }
@@ -150,6 +159,7 @@ void engine_terminate()
 {
 	cairo_destroy(cairo_context);
 	g_object_unref(pango_context);
+
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < sets[i].length; ++j)
 			g_object_unref(sets[i].layout_list[j]);
