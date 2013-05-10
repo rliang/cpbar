@@ -35,11 +35,10 @@ static bool create_layout(PangoLayout **location)
 {
 	if (location == NULL)
 		return false;
-
 	if (*location != NULL)
 		g_object_unref(*location);
-	*location = pango_layout_new(pango_context);
 
+	*location = pango_layout_new(pango_context);
 	pango_layout_set_ellipsize(*location, PANGO_ELLIPSIZE_END);
 
 	return true;
