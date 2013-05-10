@@ -37,8 +37,9 @@ static void init_set(struct layout_set *set, int length,
 	for (int j = 0; j < length; ++j) {
 		set->layout_list[j] =
 			pango_cairo_create_layout(context);
+		pango_layout_set_ellipsize(set->layout_list[j],
+				PANGO_ELLIPSIZE_END);
 		pango_layout_set_font_description(set->layout_list[j], font);
-		/* pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END); */
 	}
 }
 
@@ -91,7 +92,7 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 		int width, height;
 		pango_layout_get_pixel_size(current, &width, &height);
 		pango_layout_set_width(current,
-				(upper_limit - lower_limit) * PANGO_SCALE);
+				(1 + upper_limit - lower_limit) * PANGO_SCALE);
 		draw_text(current, lower_limit, height);
 		lower_limit += width;
 	}
