@@ -62,7 +62,7 @@ void engine_init_sets(const int sizes[3], const char *default_font)
 		init_set(&sets[i], sizes[i]);
 }
 
-static PangoLayout **get_layout(int id)
+static PangoLayout **get_layout_location(int id)
 {
 	for (int i = 0; i < 3; ++i) {
 		if (id < 0)
@@ -137,9 +137,9 @@ static void clean_canvas()
 
 void engine_update(char *string, int id)
 {
-	PangoLayout **layout = get_layout(id);
-	create_layout(layout);
-	pango_layout_set_markup(*layout, string, -1);
+	PangoLayout **layout_location = get_layout_location(id);
+	create_layout(layout_location);
+	pango_layout_set_markup(*layout_location, string, -1);
 	clean_canvas();
 	draw_sets();
 }
