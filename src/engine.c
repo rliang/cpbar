@@ -36,6 +36,8 @@ void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 
 static bool create_layout(PangoLayout **location)
 {
+	if (location == NULL)
+		return false;
 	if (*location != NULL)
 		g_object_unref(*location);
 	*location = pango_layout_new(pango_context);
@@ -136,8 +138,6 @@ static void clean_canvas()
 void engine_update(char *string, int id)
 {
 	PangoLayout **layout = get_layout(id);
-	if (layout == NULL)
-		return;
 	create_layout(layout);
 	pango_layout_set_markup(*layout, string, -1);
 	clean_canvas();
