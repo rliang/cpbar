@@ -41,8 +41,6 @@ static void init_set(struct layout_set *set, int length)
 	for (int j = 0; j < length; ++j) {
 		set->layout_list[j] =
 			pango_layout_new(pango_context);
-		pango_layout_set_ellipsize(set->layout_list[j],
-				PANGO_ELLIPSIZE_END);
 	}
 }
 
