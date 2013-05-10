@@ -44,7 +44,6 @@ static void init_set(struct layout_set *set, int length,
 			pango_layout_new(pango_context);
 		pango_layout_set_ellipsize(set->layout_list[j],
 				PANGO_ELLIPSIZE_END);
-		pango_layout_set_font_description(set->layout_list[j], font);
 	}
 }
 
