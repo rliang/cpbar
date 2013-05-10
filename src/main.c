@@ -35,6 +35,7 @@ static void main_loop()
 
 		if (fgets(buffer, BUFSIZ, stdin) == NULL)
 			continue;
+		buffer[strlen(buffer) - 1] = '\0';
 		if (!parse_input(buffer, &id, string, BUFSIZ))
 			continue;
 
