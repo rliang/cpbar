@@ -7,6 +7,7 @@
 #include "options.h"
 #include "window.h"
 #include "engine.h"
+#include "utils.h"
 
 static bool init(int argc, char *argv[])
 {
@@ -28,12 +29,14 @@ static bool init(int argc, char *argv[])
 static void main_loop()
 {
 	int id;
-	char buffer[BUFSIZ];
+	char string[BUFSIZ];
 	for (;;) {
-		if (scanf("%d %s", &id, buffer) != 2)
+		char buffer[BUFSIZ];
+		if (fgets(buffer, BUFSIZ, stdin) == NULL)
 			continue;
-		buffer[BUFSIZ - 1] = '\0';
-		engine_update(buffer, id);
+		if (!parse_input(buffer, &id, string, BUFSIZ))
+			continue;
+		engine_update(string, id);
 		window_flush();
 	}
 }

@@ -34,7 +34,7 @@ bool parse_input(char *input, int *id, char *string, int length)
 
 	char *text = separator + 1;
 	int text_length = input + length - separator;
-	if (!strncpy(string, text, text_length);
+	if (!strncpy(string, text, text_length))
 		return false;
 	return true;
 }
