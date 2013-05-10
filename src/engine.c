@@ -34,8 +34,7 @@ void engine_init_canvas(cairo_surface_t *surface, int width, int height,
 	parse_color(background, default_background);
 }
 
-static void init_set(struct layout_set *set, int length,
-		PangoFontDescription *font)
+static void init_set(struct layout_set *set, int length)
 {
 	set->layout_list = calloc(length, sizeof(PangoLayout *));
 	set->length = length;
@@ -53,7 +52,7 @@ void engine_init_sets(const int sizes[3], const char *default_font)
 		pango_font_description_from_string(default_font);
 	pango_context_set_font_description(pango_context, font);
 	for (int i = 0; i < 3; ++i)
-		init_set(&sets[i], sizes[i], font);
+		init_set(&sets[i], sizes[i]);
 }
 
 static PangoLayout **get_layout(int id)
