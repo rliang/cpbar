@@ -67,12 +67,15 @@ void options_init(int argc, char **argv)
 			options.bar_on_bottom = true;
 			break;
 		case 't':
+			free(options.default_font);
 			options.default_font = strdup(optarg);
 			break;
 		case 'f':
+			free(options.default_font);
 			options.default_foreground = strdup(optarg);
 			break;
 		case 'b':
+			free(options.default_font);
 			options.default_background = strdup(optarg);
 			break;
 		default:
@@ -105,7 +108,16 @@ void options_init(int argc, char **argv)
 
 void options_terminate()
 {
-	free(options.default_font);
-	free(options.default_foreground);
-	free(options.default_background);
+	if (options.default_font != NULL) {
+		free(options.default_font);
+		options.default_font = NULL;
+	}
+	if (options.default_foreground != NULL) {
+		free(options.default_foreground);
+		options.default_foreground = NULL;
+	}
+	if (options.default_foreground != NULL) {
+		free(options.default_background);
+		options.default_background = NULL;
+	}
 }
