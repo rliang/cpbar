@@ -23,6 +23,7 @@ static bool init(int argc, char *argv[])
 	engine_init_sets(options.sizes, options.default_font,
 			options.default_foreground, options.default_background);
 
+	options_terminate();
 	window_flush();
 	return true;
 }
