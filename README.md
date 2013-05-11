@@ -42,3 +42,10 @@ Options
 `-f --foreground FOREGROUND` Set the default foreground color to `FOREGROUND`. Default `#FFFFFF`
 
 `-b --background BACKGROUND` Set the default background color to `BACKGROUND`. Default `#000000`
+
+To Do:
+------
+
+* Improve parsing functions
+* Respond to X events such as EXPOSE
+* Detect errors in XCB/Cairo/Pango calls
