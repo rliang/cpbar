@@ -71,17 +71,17 @@ void options_init(int argc, char **argv)
 			options.default_font = strdup(optarg);
 			break;
 		case 'f':
-			free(options.default_font);
+			free(options.default_foreground);
 			options.default_foreground = strdup(optarg);
 			break;
 		case 'b':
-			free(options.default_font);
+			free(options.default_background);
 			options.default_background = strdup(optarg);
 			break;
 		default:
 			printf("Usage: %s pbar [-h] [-m] [-g HEIGHT] [-l LEFT] [-r RIGHT] [-c CENTER] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]\n"
 				"\t-h --help\t\t\tDisplay this help\n"
-				"\t-m --bottom\t\t\tPlace bar on the bottom of the screen. Default 16\n"
+				"\t-m --bottom\t\t\tPlace bar on the bottom of the screen\n"
 				"\t-g --height HEIGHT\t\tSet bar height to HEIGHT. Default 16\n"
 				"\t-l --left LEFT\t\t\tSet first LEFT identifiers to the left part of the bar. Default 0\n"
 				"\t-r --right RIGHT\t\tSet the following RIGHT identifiers to the right part of the bar. Default 0\n"
@@ -116,7 +116,7 @@ void options_terminate()
 		free(options.default_foreground);
 		options.default_foreground = NULL;
 	}
-	if (options.default_foreground != NULL) {
+	if (options.default_background != NULL) {
 		free(options.default_background);
 		options.default_background = NULL;
 	}
