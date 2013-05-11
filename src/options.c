@@ -93,7 +93,7 @@ void options_init(int argc, char **argv)
 				"of the panel, then the next RIGHT for the right part, and the remaining"
 				"CENTER for the center. Each part is drawn left-to-right. Input must start with"
 				"the identifier and a non-digit character. e.g.:\n"
-				"\tpbar --center 1 --left 2 --right 3\n"
+				"\t%s --center 1 --left 2 --right 3\n"
 				"\t0 my info\n"
 				"\t3 info on right\n"
 				"\t4 more on right\n"
