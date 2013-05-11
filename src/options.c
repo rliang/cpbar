@@ -16,16 +16,7 @@
 #define DEFAULT_FOREGROUND "#ffffff"
 #define DEFAULT_BACKGROUND "#000000"
 
-struct options options = {
-	.sizes[0] = DEFAULT_SIZES,
-	.sizes[1] = DEFAULT_SIZES,
-	.sizes[2] = DEFAULT_SIZES,
-	.bar_height = DEFAULT_HEIGHT,
-	.bar_on_bottom = DEFAULT_ON_BOTTOM,
-	.default_font = DEFAULT_FONT,
-	.default_foreground = DEFAULT_FOREGROUND,
-	.default_background = DEFAULT_BACKGROUND
-};
+struct options options;
 
 static struct option long_options[] = {
 	{ "help", no_argument, 0, 'h' },
@@ -39,8 +30,21 @@ static struct option long_options[] = {
 	{ "background", required_argument, 0, 'b' }
 };
 
+static void set_defaults()
+{
+	options.sizes[0] = DEFAULT_SIZES;
+	options.sizes[1] = DEFAULT_SIZES;
+	options.sizes[2] = DEFAULT_SIZES;
+	options.bar_height = DEFAULT_HEIGHT;
+	options.bar_on_bottom = DEFAULT_ON_BOTTOM;
+	options.default_font = strdup(DEFAULT_FONT);
+	options.default_foreground = strdup(DEFAULT_FOREGROUND);
+	options.default_background = strdup(DEFAULT_BACKGROUND);
+}
+
 void options_init(int argc, char **argv)
 {
+	set_defaults();
 	while (1) {
 		int arg = getopt_long(argc, argv, "hu:l:r:c:mg:t:f:b:",
 				long_options, NULL);
