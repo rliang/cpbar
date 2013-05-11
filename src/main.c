@@ -30,14 +30,14 @@ static bool init(int argc, char *argv[])
 static void main_loop()
 {
 	for (;;) {
-		char buffer[BUFSIZ];
 		int id;
 		char string[BUFSIZ];
 
+		char buffer[BUFSIZ];
 		if (fgets(buffer, BUFSIZ, stdin) == NULL)
 			continue;
-		buffer[strlen(buffer) - 1] = '\0';
 
+		buffer[strlen(buffer) - 1] = '\0';
 		if (!parse_input(buffer, &id, string, BUFSIZ))
 			continue;
 
