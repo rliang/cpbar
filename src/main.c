@@ -38,7 +38,7 @@ static void main_loop()
 
 		char buffer[BUFSIZ];
 		if (fgets(buffer, BUFSIZ, stdin) == NULL)
-			continue;
+			break;
 
 		buffer[strlen(buffer) - 1] = '\0';
 		if (!parse_input(buffer, &id, string, BUFSIZ))
