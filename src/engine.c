@@ -32,6 +32,7 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 	cairo_context = cairo_create(surface);
 	if (cairo_status(cairo_context) != CAIRO_STATUS_SUCCESS)
 		return false;
+	cairo_surface_destroy(surface);
 
 	pango_context = pango_cairo_create_context(cairo_context);
 
