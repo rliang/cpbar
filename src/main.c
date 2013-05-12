@@ -19,7 +19,9 @@ static bool init(int argc, char *argv[])
 			window.xcb_connection, window.xcb_window,
 			window.xcb_visualtype, window.width, window.height);
 
-	engine_init_canvas(surface, window.width, window.height);
+	if (!engine_init_canvas(surface, window.width, window.height))
+		return false;
+
 	engine_init_sets(options.sizes, options.default_font,
 			options.default_foreground, options.default_background);
 

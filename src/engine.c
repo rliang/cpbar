@@ -26,10 +26,19 @@ static double default_background[3];
 
 bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 {
+	if (cairo_surface_status(surface) != CAIRO_STATUS_SUCCESS)
+		return false;
+
 	cairo_context = cairo_create(surface);
+	if (cairo_status(cairo_context) != CAIRO_STATUS_SUCCESS)
+		return false;
+
 	pango_context = pango_cairo_create_context(cairo_context);
+
 	canvas_width = width;
 	canvas_height = height;
+
+	return true;
 }
 
 static bool create_layout(PangoLayout **location)
