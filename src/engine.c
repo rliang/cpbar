@@ -155,7 +155,7 @@ void engine_update(char *string, int id)
 	PangoLayout **layout_location = get_layout_location(id);
 
 	const char *current = pango_layout_get_text(*layout_location);
-	if (current != NULL && strcmp(current, string) != 0)
+	if (current != NULL && strncmp(current, string, BUFSIZ) == 0)
 		return;
 
 	create_layout(layout_location);
