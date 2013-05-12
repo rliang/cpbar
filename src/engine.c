@@ -24,7 +24,7 @@ static int canvas_height;
 static double default_foreground[3];
 static double default_background[3];
 
-void engine_init_canvas(cairo_surface_t *surface, int width, int height)
+bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 {
 	cairo_context = cairo_create(surface);
 	pango_context = pango_cairo_create_context(cairo_context);
