@@ -3,6 +3,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include <stdbool.h>
 #include <pango/pangocairo.h>
 
 bool engine_init_canvas(cairo_surface_t *surface, int width, int height);
