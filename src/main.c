@@ -49,6 +49,7 @@ static void main_loop()
 
 static void terminate()
 {
+	options_terminate();
 	engine_terminate();
 	window_terminate();
 }
