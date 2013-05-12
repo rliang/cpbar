@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "utils.h"
 
@@ -152,6 +153,10 @@ static void clean_canvas()
 void engine_update(char *string, int id)
 {
 	PangoLayout **layout_location = get_layout_location(id);
+
+	const char *current = pango_layout_get_text(*layout_location);
+	if (current != NULL && strcmp(current, string) != 0)
+		return;
 
 	create_layout(layout_location);
 	pango_layout_set_markup(*layout_location, string, -1);
