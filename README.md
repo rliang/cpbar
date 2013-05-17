@@ -24,6 +24,10 @@ Result:
 
 	[my info][]				[center info]		[][info on right][updated info]
 
+Examples scripts [here][gist].
+
+	[gist]: http://gist.github.com/shian5/5602383
+
 Options
 -------
 
