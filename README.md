@@ -26,7 +26,7 @@ Result:
 
 Examples scripts [here][gist].
 
-	[gist]: http://gist.github.com/shian5/5602383
+[gist]: http://gist.github.com/shian5/5602383
 
 Options
 -------
