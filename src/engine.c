@@ -219,8 +219,7 @@ void engine_update(char *string, int id)
 	create_layout(layout_location);
 	pango_layout_set_markup(*layout_location, string, -1);
 
-	clean_canvas();
-	draw_sets();
+	engine_refresh();
 }
 
 void engine_refresh()
