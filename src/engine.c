@@ -164,6 +164,8 @@ static void clean_canvas()
 void engine_update(char *string, int id)
 {
 	PangoLayout **layout_location = get_layout_location(id);
+	if (layout_location == NULL)
+		return;
 
 	const char *current = pango_layout_get_text(*layout_location);
 	if (current != NULL && strncmp(current, string, BUFSIZ) == 0)
