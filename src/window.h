@@ -25,6 +25,12 @@ extern struct window window;
 void window_init(uint16_t height, bool on_bottom);
 
 /*!
+ * Waits for X events and handles them with the given function.
+ * @params handler the function to handle the X events.
+ */
+void window_event_wait(void(*handler)());
+
+/*!
  * Redraws the window, which should be initialized first.
  */
 void window_flush();

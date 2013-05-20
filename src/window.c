@@ -37,7 +37,7 @@ static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
 			window.width, window.height,
 			0, XCB_WINDOW_CLASS_INPUT_OUTPUT,
 			s->root_visual, XCB_CW_EVENT_MASK,
-			(const uint32_t []){ [0] = XCB_EVENT_MASK_EXPOSURE });
+			(const uint32_t []){ XCB_EVENT_MASK_EXPOSURE });
 	xcb_change_window_attributes(window.xcb_connection, window.xcb_window,
 			XCB_CW_OVERRIDE_REDIRECT, (const uint32_t []){ 1 });
 	xcb_map_window(window.xcb_connection, window.xcb_window);
@@ -59,6 +59,20 @@ void window_init(uint16_t height, bool on_bottom)
 	int16_t window_y = on_bottom ? s->height_in_pixels - height : 0;
 
 	create_window(s, window_x, window_y);
+}
+
+void window_event_wait(void(*handler)())
+{
+	xcb_generic_event_t *xcb_event;
+	xcb_expose_event_t *xcb_expose_event;
+	while ((xcb_event = xcb_poll_for_event(window.xcb_connection))) {
+		xcb_expose_event = (xcb_expose_event_t *)xcb_event;
+		switch (xcb_event->response_type & 0x7F) {
+		case XCB_EXPOSE:
+			if (xcb_expose_event->count == 0)
+				handler();
+		}
+	}
 }
 
 void window_flush()
