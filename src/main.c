@@ -16,7 +16,7 @@
  * @param argv argv from the main function.
  * @see main()
  * @see terminate()
- * @return Whether the initialization has succeeded.
+ * @return true if the initialization has succeeded, otherwise false.
  */
 static bool init(int argc, char *argv[])
 {
@@ -61,6 +61,11 @@ static void main_loop()
 	}
 }
 
+/**
+ * Frees resources allocated by init. At the time of writing, not guaranteed
+ to succeed if init fails.
+ * @see init()
+ */
 static void terminate()
 {
 	options_terminate();
@@ -68,6 +73,12 @@ static void terminate()
 	window_terminate();
 }
 
+/**
+ * Main function. Calls init, main_loop and terminate.
+ * @see init()
+ * @see main_loop()
+ * @see terminate()
+ */
 int main(int argc, char *argv[])
 {
 	atexit(terminate);
