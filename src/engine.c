@@ -223,6 +223,12 @@ void engine_update(char *string, int id)
 	draw_sets();
 }
 
+void engine_refresh()
+{
+	clean_canvas();
+	draw_sets();
+}
+
 void engine_terminate()
 {
 	cairo_destroy(cairo_context);

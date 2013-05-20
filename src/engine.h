@@ -39,6 +39,11 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 void engine_update(char *string, int id);
 
 /*!
+ * Redraws the canvas, without updating text.
+ */
+void engine_refresh();
+
+/*!
  * Frees resources allocated by engine_init_canvas() and engine_init_sets().
  */
 void engine_terminate();
