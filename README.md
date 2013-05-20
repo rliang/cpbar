@@ -52,5 +52,4 @@ To Do:
 
 * PKGBUILD
 * Improve parsing functions
-* Respond to X events such as EXPOSE
 * Detect errors in XCB/Cairo/Pango calls
