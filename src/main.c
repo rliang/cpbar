@@ -10,6 +10,14 @@
 #include "engine.h"
 #include "utils.h"
 
+/**
+ * Initializes all modules. After their use, terminate should be called.
+ * @param argc argc from the main function.
+ * @param argv argv from the main function.
+ * @see main()
+ * @see terminate()
+ * @return Whether the initialization has succeeded.
+ */
 static bool init(int argc, char *argv[])
 {
 	options_init(argc, argv);
@@ -29,6 +37,11 @@ static bool init(int argc, char *argv[])
 	return true;
 }
 
+/**
+ * Executes the main loop until it receives null input from STDIN.
+ Requires all modules to have been initialized.
+ * @see init()
+ */
 static void main_loop()
 {
 	for (;;) {
