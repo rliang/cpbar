@@ -30,15 +30,6 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 		const char *foreground, const char *background);
 
 /*!
- * Updates the text at the given ID. If ID is greater than each of the, in
- order, left, right and center sets' length, it attempts the following one.
- Triggers a redraw on success. Must be called after initialization.
- * @param string null-terminated string containing the desired text to display.
- * @param id the ID to be updated.
- */
-void engine_update(char *string, int id);
-
-/*!
  * Waits for STDIN input and updates text as needed.
  */
 void engine_input_wait();

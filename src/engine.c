@@ -206,7 +206,14 @@ static void clean_canvas()
 	cairo_paint(cairo_context);
 }
 
-void engine_update(char *string, int id)
+/*!
+ * Updates the text at the given ID. If ID is greater than each of the, in
+ order, left, right and center sets' length, it attempts the following one.
+ Triggers a redraw on success. Must be called after initialization.
+ * @param string null-terminated string containing the desired text to display.
+ * @param id the ID to be updated.
+ */
+static void engine_update(char *string, int id)
 {
 	PangoLayout **layout_location = get_layout_location(id);
 	if (layout_location == NULL)
