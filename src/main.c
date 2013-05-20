@@ -58,7 +58,8 @@ static void terminate()
 
 int main(int argc, char *argv[])
 {
+	atexit(terminate);
+
 	if (init(argc, argv))
 		main_loop();
-	terminate();
 }
