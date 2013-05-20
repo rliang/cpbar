@@ -43,6 +43,12 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 	return true;
 }
 
+/*!
+ * Creates a new PangoLayout at the location given, or reallocates a new one.
+ * @params location pointer to the PangoLayout pointer to initialize or
+ replace.
+ * @return true on success, false otherwise.
+ */
 static bool create_layout(PangoLayout **location)
 {
 	if (location == NULL)
@@ -56,6 +62,12 @@ static bool create_layout(PangoLayout **location)
 	return true;
 }
 
+/*!
+ * Initializes an individual set.
+ * @param set pointer to the set.
+ * @param length length of IDs to allocate for the set.
+ * @see create_layout()
+ */
 static void init_set(struct layout_set *set, int length)
 {
 	set->layout_list = calloc(length, sizeof(PangoLayout *));
@@ -79,6 +91,11 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 		init_set(&sets[i], sizes[i]);
 }
 
+/*!
+ * Iterates over each set to find the respective location of an ID.
+ * @param id The ID.
+ * @return A pointer to the PangoLayout pointer on success, or NULL.
+ */
 static PangoLayout **get_layout_location(int id)
 {
 	for (int i = 0; i < 3; ++i) {
@@ -91,6 +108,11 @@ static PangoLayout **get_layout_location(int id)
 	return NULL;
 }
 
+/*!
+ * Iterates over a layout_set, adding up the text widths.
+ * @param set pointer to the set to iterate.
+ * @return the total width, in pixels.
+ */
 static int get_set_width(struct layout_set *set)
 {
 	int total = 0;
@@ -102,6 +124,13 @@ static int get_set_width(struct layout_set *set)
 	return total;
 }
 
+/*!
+ * Draws Pango text onto the vertical middle of the canvas, horizontally.
+ * @param layout valid pointer to the PangoLayout containing the text.
+ * @param x the position, in pixels, to start drawing.
+ * @param text_height the height of the text so the middle point can be
+ calculated.
+ */
 static void draw_text(PangoLayout *layout, int x, int text_height)
 {
 	cairo_set_source_rgba(cairo_context,
@@ -114,6 +143,13 @@ static void draw_text(PangoLayout *layout, int x, int text_height)
 	pango_cairo_show_layout(cairo_context, layout);
 }
 
+/*!
+ * Draws a set of text.
+ * @param set a valid pointer to a layout_set of text.
+ * @param lower_limit in pixels, the position on the screen to start drawing.
+ * @param upper_limit in pixels, the position on the screen to finish drawing.
+ * @see draw_text()
+ */
 static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 {
 	for (int i = 0; i < set->length; ++i) {
@@ -129,6 +165,12 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 	}
 }
 
+/*!
+ * Draws the sets with a defined logic. For each of them to not overlap, the
+ right set is always drawn over all others, and the left set "pushes" the
+ center set's text to the right, may they overlap.
+ * @see draw_set()
+ */
 static void draw_sets()
 {
 	int left_width = get_set_width(&sets[0]);
@@ -152,6 +194,9 @@ static void draw_sets()
 	draw_set(&sets[2], center_begin, center_end);
 }
 
+/*!
+ * Paints the canvas of the default background color.
+ */
 static void clean_canvas()
 {
 	cairo_set_source_rgba(cairo_context,

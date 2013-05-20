@@ -14,6 +14,12 @@ char *strdup(const char *arg)
 	return buffer;
 }
 
+/*!
+ * Finds the first non-digit character of a string.
+ * @param input the string to look up.
+ * @param length length of the string.
+ * @return Pointer to the position in the string if found, or NULL.
+ */
 static char* find_separator(char *input, int length)
 {
 	int i = 0;

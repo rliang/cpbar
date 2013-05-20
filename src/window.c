@@ -4,6 +4,11 @@
 
 struct window window;
 
+/*!
+ * Some drawing surfaces such as Cairo require the visual type.
+ * @param s the screen to obtain the visual type from.
+ * @return pointer to the visual type on success, or NULL.
+ */
 static xcb_visualtype_t *get_root_visual_type(xcb_screen_t *s)
 {
 	for (xcb_depth_iterator_t di =
@@ -19,6 +24,12 @@ static xcb_visualtype_t *get_root_visual_type(xcb_screen_t *s)
 	return NULL;
 }
 
+/*!
+ * Creates the XCB window from parameters and the window struct's members.
+ * @param s the screen to create the XCB window from.
+ * @param x the position in pixels of the X coordinate to place it.
+ * @param y the position in pixels of the y coordinate to place it.
+ */
 static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
 {
 	xcb_create_window(window.xcb_connection, XCB_COPY_FROM_PARENT,

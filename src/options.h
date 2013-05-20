@@ -18,7 +18,16 @@ struct options {
 
 extern struct options options;
 
+/*!
+ * Parses and initializes the options struct.
+ * @param argc argc from the main function.
+ * @param argv argv from the main function.
+ */
 void options_init(int argc, char **argv);
+
+/*!
+ * Frees resources allocated by options_init().
+ */
 void options_terminate();
 
 #endif /* OPTIONS_H */
