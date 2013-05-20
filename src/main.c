@@ -1,14 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <poll.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <cairo-xcb.h>
 
 #include "options.h"
 #include "window.h"
 #include "engine.h"
-#include "utils.h"
 
 /*!
  * Initializes all modules. After their use, terminate should be called.
@@ -48,19 +49,22 @@ static bool init(int argc, char *argv[])
  */
 static void main_loop()
 {
+	struct pollfd polls[2] = {
+		{ STDIN_FILENO, POLLIN, 0 },
+		{ xcb_get_file_descriptor(window.xcb_connection), POLLIN, 0 }
+	};
+
 	for (;;) {
-		int id;
-		char string[BUFSIZ];
-
-		char buffer[BUFSIZ];
-		if (fgets(buffer, BUFSIZ, stdin) == NULL)
-			break;
-
-		buffer[strlen(buffer) - 1] = '\0';
-		if (!parse_input(buffer, &id, string, BUFSIZ))
+		if (!poll(polls, 2, -1))
 			continue;
 
-		engine_update(string, id);
+		if (polls[0].revents & POLLHUP)
+			polls[0].fd = -1;
+		if (polls[0].revents & POLLIN)
+			engine_input_wait();
+		if (polls[1].revents & POLLIN)
+			window_event_wait(engine_refresh);
+
 		window_flush();
 	}
 }
