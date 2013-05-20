@@ -30,6 +30,11 @@ static struct option long_options[] = {
 	{ "background", required_argument, 0, 'b' }
 };
 
+/*!
+ * Sets the options struct's members to the defaults. Allows them to be safely
+ freed later.
+ * @see options_terminate()
+ */
 static void set_defaults()
 {
 	options.sizes[0] = DEFAULT_SIZES;
