@@ -222,6 +222,22 @@ void engine_update(char *string, int id)
 	engine_refresh();
 }
 
+void engine_input_wait()
+{
+	char string[BUFSIZ];
+	int id;
+
+	char buffer[BUFSIZ];
+	if (fgets(buffer, BUFSIZ, stdin) == NULL)
+		return;
+
+	buffer[strlen(buffer) - 1] = '\0';
+	if (!parse_input(buffer, &id, string, BUFSIZ))
+		return;
+
+	engine_update(string, id);
+}
+
 void engine_refresh()
 {
 	clean_canvas();

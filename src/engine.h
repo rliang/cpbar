@@ -39,6 +39,11 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 void engine_update(char *string, int id);
 
 /*!
+ * Waits for STDIN input and updates text as needed.
+ */
+void engine_input_wait();
+
+/*!
  * Redraws the canvas, without updating text.
  */
 void engine_refresh();
