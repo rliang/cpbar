@@ -10,6 +10,7 @@ struct window {
 	xcb_connection_t *xcb_connection;
 	xcb_visualtype_t *xcb_visualtype;
 	xcb_window_t xcb_window;
+	int xcb_file_descriptor;
 	uint16_t width;
 	uint16_t height;
 	void(*redraw)();

@@ -51,7 +51,7 @@ static void main_loop()
 {
 	struct pollfd polls[2] = {
 		{ STDIN_FILENO, POLLIN, 0 },
-		{ xcb_get_file_descriptor(window.xcb_connection), POLLIN, 0 }
+		{ window.xcb_file_descriptor, POLLIN, 0 }
 	};
 
 	for (;;) {

@@ -46,6 +46,8 @@ static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
 void window_init(uint16_t height, bool on_bottom, void(*redraw)())
 {
 	window.xcb_connection = xcb_connect(NULL, NULL);
+	window.xcb_file_descriptor =
+		xcb_get_file_descriptor(window.xcb_connection);
 
 	xcb_screen_t *s = xcb_setup_roots_iterator(
 			xcb_get_setup(window.xcb_connection)).data;
