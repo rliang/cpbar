@@ -8,6 +8,7 @@ struct window window;
  * Some drawing surfaces such as Cairo require the visual type.
  * @param s the screen to obtain the visual type from.
  * @return pointer to the visual type on success, or NULL.
+ * @see window_init()
  */
 static xcb_visualtype_t *get_root_visual_type(xcb_screen_t *s)
 {

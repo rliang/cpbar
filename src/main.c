@@ -15,13 +15,13 @@
  * Initializes all modules. After their use, terminate should be called.
  * @param argc argc from the main function.
  * @param argv argv from the main function.
+ * @return true if the initialization has succeeded, otherwise false.
  * @see main()
  * @see terminate()
  * @see options_init()
  * @see window_init()
  * @see engine_init_canvas()
  * @see engine_init_sets()
- * @return true if the initialization has succeeded, otherwise false.
  */
 static bool init(int argc, char *argv[])
 {

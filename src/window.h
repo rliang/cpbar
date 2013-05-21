@@ -28,7 +28,7 @@ extern struct window window;
 void window_init(uint16_t height, bool on_bottom, void(*redraw)());
 
 /*!
- * Waits for X events and handles them with the given function.
+ * Waits for X events and handles them accordingly.
  */
 void window_event_wait();
 
