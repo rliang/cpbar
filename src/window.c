@@ -43,7 +43,7 @@ static void create_window(xcb_screen_t *s, int16_t x, int16_t y)
 	xcb_map_window(window.xcb_connection, window.xcb_window);
 }
 
-void window_init(uint16_t height, bool on_bottom)
+void window_init(uint16_t height, bool on_bottom, void(*redraw)())
 {
 	window.xcb_connection = xcb_connect(NULL, NULL);
 
@@ -59,9 +59,11 @@ void window_init(uint16_t height, bool on_bottom)
 	int16_t window_y = on_bottom ? s->height_in_pixels - height : 0;
 
 	create_window(s, window_x, window_y);
+
+	window.redraw = redraw;
 }
 
-void window_event_wait(void(*handler)())
+void window_event_wait()
 {
 	xcb_generic_event_t *xcb_event;
 	xcb_expose_event_t *xcb_expose_event;
@@ -70,7 +72,7 @@ void window_event_wait(void(*handler)())
 		switch (xcb_event->response_type & 0x7F) {
 		case XCB_EXPOSE:
 			if (xcb_expose_event->count == 0)
-				handler();
+				window.redraw();
 		}
 	}
 }

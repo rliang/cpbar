@@ -26,7 +26,7 @@
 static bool init(int argc, char *argv[])
 {
 	options_init(argc, argv);
-	window_init(options.bar_height, options.bar_on_bottom);
+	window_init(options.bar_height, options.bar_on_bottom, engine_refresh);
 
 	cairo_surface_t *surface = cairo_xcb_surface_create(
 			window.xcb_connection, window.xcb_window,
@@ -63,7 +63,7 @@ static void main_loop()
 		if (polls[0].revents & POLLIN)
 			engine_input_wait();
 		if (polls[1].revents & POLLIN)
-			window_event_wait(engine_refresh);
+			window_event_wait();
 
 		window_flush();
 	}

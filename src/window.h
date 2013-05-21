@@ -12,6 +12,7 @@ struct window {
 	xcb_window_t xcb_window;
 	uint16_t width;
 	uint16_t height;
+	void(*redraw)();
 };
 
 extern struct window window;
@@ -21,14 +22,14 @@ extern struct window window;
  * @param height the height of the window.
  * @param on_bottom whether the window should be placed on the bottom of the
  screen.
+ * @param redraw the function to redraw the window.
  */
-void window_init(uint16_t height, bool on_bottom);
+void window_init(uint16_t height, bool on_bottom, void(*redraw)());
 
 /*!
  * Waits for X events and handles them with the given function.
- * @params handler the function to handle the X events.
  */
-void window_event_wait(void(*handler)());
+void window_event_wait();
 
 /*!
  * Redraws the window, which should be initialized first.
