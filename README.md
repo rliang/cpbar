@@ -1,7 +1,7 @@
 cpbar
 =====
 
-XCB-based panel that displays text from STDIN using Cairo and Pango markup.
+Lightweight XCB-based panel for displaying textual information from STDIN using Cairo and Pango markup.
 
 Usage
 -----
@@ -52,4 +52,4 @@ To Do:
 
 * PKGBUILD
 * Improve parsing functions
-* Detect errors in XCB/Cairo/Pango calls
+* Dynamically-allocated identifiers
