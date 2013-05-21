@@ -1,8 +1,8 @@
 EXEC=cpbar
 LIBS=xcb pangocairo
 
-SRCS=$(wildcard src/**/*.c src/*.c *.c)
-OBJS=$(patsubst %.c,%.o,${SRCS})
+SRCS=$(wildcard src/*.c)
+OBJS=$(SRCS:.c=.o)
 
 CFLAGS=-std=c99 -Wall -Wextra -pedantic -s -pipe -O3
 CFLAGS+=`pkg-config --cflags $(LIBS)`
