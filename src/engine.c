@@ -255,6 +255,8 @@ void engine_input_wait()
 	buffer[strlen(buffer) - 1] = '\0';
 
 	char *string = buffer;
+	int id = engine_parse_index(&string, &length);
+
 	engine_update(string, id);
 }
 
