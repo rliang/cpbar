@@ -249,6 +249,7 @@ void engine_input_wait()
 {
 	int length = BUFSIZ;
 	char buffer[length];
+
 	if (fgets(buffer, length, stdin) == NULL)
 		return;
 	buffer[strlen(buffer) - 1] = '\0';
