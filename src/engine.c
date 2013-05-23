@@ -207,29 +207,6 @@ static void clean_canvas()
 	cairo_paint(cairo_context);
 }
 
-/*!
- * Updates the text at the given ID. If ID is greater than each of the, in
- order, left, right and center sets' length, it attempts the following one.
- Triggers a redraw on success. Must be called after initialization.
- * @param string null-terminated string containing the desired text to display.
- * @param id the ID to be updated.
- */
-static void engine_update(char *string, int id)
-{
-	PangoLayout **layout_location = get_layout_location(id);
-	if (layout_location == NULL)
-		return;
-
-	const char *current = pango_layout_get_text(*layout_location);
-	if (current != NULL && strncmp(current, string, BUFSIZ) == 0)
-		return;
-
-	create_layout(layout_location);
-	pango_layout_set_markup(*layout_location, string, -1);
-
-	engine_refresh();
-}
-
 static char engine_parse_position(char **input, int *length)
 {
 	if (*length < 1)
@@ -258,6 +235,41 @@ static int engine_parse_index(char **input, int *length)
 	return index;
 }
 
+static struct layout_set *engine_find_set(char position)
+{
+	switch (position) {
+	case 'l':
+		return &sets[0];
+	case 'r':
+		return &sets[1];
+	case 'c':
+		return &sets[2];
+	}
+	return NULL;
+}
+
+void engine_update(char *input, int length)
+{
+	if (length < 3)
+		return;
+
+	char position = engine_parse_position(&input, &length);
+	if (position == '\0')
+		return;
+
+	int index = engine_parse_index(&input, &length);
+
+	struct layout_set *set = engine_find_set(position);
+	if (set == NULL)
+		return;
+
+	PangoLayout **layout_location = &set->layout_list[index];
+	create_layout(layout_location);
+	pango_layout_set_markup(*layout_location, input, -1);
+
+	engine_refresh();
+}
+
 void engine_input_wait()
 {
 	int length = BUFSIZ;
@@ -267,10 +279,7 @@ void engine_input_wait()
 		return;
 	buffer[strlen(buffer) - 1] = '\0';
 
-	char *string = buffer;
-	int id = engine_parse_index(&string, &length);
-
-	engine_update(string, id);
+	engine_update(buffer, length);
 }
 
 void engine_refresh()
