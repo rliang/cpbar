@@ -230,6 +230,19 @@ static void engine_update(char *string, int id)
 	engine_refresh();
 }
 
+static char layout_engine_parse_position(char **input, int *length)
+{
+	if (*length < 1)
+		return '\0';
+
+	char position = (*input)[0];
+
+	*length -= 1;
+	*input += 1;
+
+	return position;
+}
+
 static int engine_parse_index(char **input, int *length)
 {
 	int i = 0;
