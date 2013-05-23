@@ -80,18 +80,6 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 		init_set(&sets[i], sizes[i]);
 }
 
-static PangoLayout **get_layout_location(int id)
-{
-	for (int i = 0; i < 3; ++i) {
-		if (id < 0)
-			break;
-		if (id < sets[i].length)
-			return &sets[i].layout_list[id];
-		id -= sets[i].length;
-	}
-	return NULL;
-}
-
 static int get_set_width(struct layout_set *set)
 {
 	int total = 0;
