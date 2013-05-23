@@ -2,6 +2,7 @@
 
 #include "engine.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -229,19 +230,30 @@ static void engine_update(char *string, int id)
 	engine_refresh();
 }
 
+static int engine_parse_index(char **input, int *length)
+{
+	int i = 0;
+	while (i < *length && isdigit((*input)[i]))
+		i += 1;
+
+	(*input)[i] = '\0';
+	int index = atoi(*input);
+
+	*length -= i + 1;
+	*input += i + 1;
+
+	return index;
+}
+
 void engine_input_wait()
 {
-	char string[BUFSIZ];
-	int id;
-
-	char buffer[BUFSIZ];
-	if (fgets(buffer, BUFSIZ, stdin) == NULL)
+	int length = BUFSIZ;
+	char buffer[length];
+	if (fgets(buffer, length, stdin) == NULL)
 		return;
-
 	buffer[strlen(buffer) - 1] = '\0';
-	if (!parse_input(buffer, &id, string, BUFSIZ))
-		return;
 
+	char *string = buffer;
 	engine_update(string, id);
 }
 
