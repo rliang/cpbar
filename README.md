@@ -8,17 +8,18 @@ Usage
 
 	pbar [-m] [-g HEIGHT] [-l LEFT] [-r RIGHT] [-c CENTER] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
 
-Starting from `0`, the first `LEFT` identifiers are allocated for the left part
-of the panel, then the next `RIGHT` for the right part, and the remaining
-`CENTER` for the center. Each part is drawn left-to-right. Input must start with
-the identifier and a non-digit character. e.g.:
+Each position of the panel, left, right and center, get `LEFT`, `RIGHT` and
+`CENTER` identifiers, starting from zero.  of the panel, then the next `RIGHT`
+for the right part, and the remaining `CENTER` for the center. Each part is
+drawn left-to-right. Input must start with the position and the identifier and a
+non-digit character, before the textual information. e.g.:
 
 	$ pbar --center 1 --left 2 --right 3
-	0 my info
-	3 info on right
-	4 more on right
-	5 center info
-	4 updated info
+	l0 my info
+	r1 info on right
+	r2 more on right
+	c1 center info
+	r2 updated info
 
 Result:
 
@@ -35,11 +36,11 @@ Options
 
 `-g --height HEIGHT` Set bar height to `HEIGHT`. Default `16`
 
-`-l --left LEFT` Set first `LEFT` identifiers to the left part of the bar. Default `0`
+`-l --left LEFT` Set `LEFT` identifiers to the left part of the bar. Default `0`
 
-`-r --right RIGHT` Set the following `RIGHT` identifiers to the right part of the bar. Default `0`
+`-r --right RIGHT` Set `RIGHT` identifiers to the right part of the bar. Default `0`
 
-`-c --center CENTER` Set the last `CENTER` identifiers to the center part of the bar. Default `0`
+`-c --center CENTER` Set `CENTER` identifiers to the center part of the bar. Default `0`
 
 `-t --font FONT` Set the default font to `FONT`. Default `Sans-Serif Bold 9`
 
