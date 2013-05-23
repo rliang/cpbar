@@ -9,10 +9,9 @@ Usage
 	pbar [-m] [-g HEIGHT] [-l LEFT] [-r RIGHT] [-c CENTER] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
 
 Each position of the panel, left, right and center, get `LEFT`, `RIGHT` and
-`CENTER` identifiers, starting from zero.  of the panel, then the next `RIGHT`
-for the right part, and the remaining `CENTER` for the center. Each part is
-drawn left-to-right. Input must start with the position and the identifier and a
-non-digit character, before the textual information. e.g.:
+`CENTER` identifiers, starting from zero. Each part is drawn left-to-right.
+Input must start with the position and the identifier and a non-digit character,
+before the textual information. e.g.:
 
 	$ pbar --center 1 --left 2 --right 3
 	l0 my info
