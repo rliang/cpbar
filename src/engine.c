@@ -222,6 +222,8 @@ void engine_update(char *input, int length)
 		return;
 
 	int index = engine_parse_index(&input, &length);
+	if (index < 0)
+		return;
 
 	struct layout_set *set = engine_find_set(position);
 	if (set == NULL)
