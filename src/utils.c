@@ -14,38 +14,6 @@ char *strdup(const char *arg)
 	return buffer;
 }
 
-/*!
- * Finds the first non-digit character of a string.
- * @param input the string to look up.
- * @param length length of the string.
- * @return Pointer to the position in the string if found, or NULL.
- */
-static char* find_separator(char *input, int length)
-{
-	int i = 0;
-	while (i < length && isdigit(input[i]))
-		i += 1;
-	if (i == 0 || i >= length - 1)
-		return NULL;
-	return input + i;
-}
-
-bool parse_input(char *input, int *id, char *string, int length)
-{
-	char *separator = find_separator(input, length);
-	if (separator == NULL)
-		return false;
-
-	*separator = '\0';
-	*id = atoi(input);
-
-	char *text = separator + 1;
-	int text_length = input + length - separator;
-	if (!strncpy(string, text, text_length))
-		return false;
-	return true;
-}
-
 void parse_color(const char *string, double output[3])
 {
 	char r[2] = { string[1], string[2] };

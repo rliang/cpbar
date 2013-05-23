@@ -118,12 +118,6 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 	}
 }
 
-/*!
- * Draws the sets with a defined logic. For each of them to not overlap, the
- right set is always drawn over all others, and the left set "pushes" the
- center set's text to the right, may they overlap.
- * @see draw_set()
- */
 static void draw_sets()
 {
 	int left_width = get_set_width(&sets[0]);
@@ -147,9 +141,6 @@ static void draw_sets()
 	draw_set(&sets[2], center_begin, center_end);
 }
 
-/*!
- * Paints the canvas of the default background color.
- */
 static void clean_canvas()
 {
 	cairo_set_source_rgba(cairo_context,

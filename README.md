@@ -18,7 +18,7 @@ non-digit character, before the textual information. e.g.:
 	l0 my info
 	r1 info on right
 	r2 more on right
-	c1 center info
+	c0 center info
 	r2 updated info
 
 Result:

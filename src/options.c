@@ -30,11 +30,6 @@ static struct option long_options[] = {
 	{ "background", required_argument, 0, 'b' }
 };
 
-/*!
- * Sets the options struct's members to the defaults. Allows them to be safely
- freed later.
- * @see options_terminate()
- */
 static void set_defaults()
 {
 	options.sizes[0] = DEFAULT_SIZES;
@@ -88,9 +83,9 @@ void options_init(int argc, char **argv)
 				"\t-h --help\t\t\tDisplay this help\n"
 				"\t-m --bottom\t\t\tPlace bar on the bottom of the screen\n"
 				"\t-g --height HEIGHT\t\tSet bar height to HEIGHT. Default 16\n"
-				"\t-l --left LEFT\t\t\tSet first LEFT identifiers to the left part of the bar. Default 0\n"
-				"\t-r --right RIGHT\t\tSet the following RIGHT identifiers to the right part of the bar. Default 0\n"
-				"\t-c --center CENTER\t\tSet the last CENTER identifiers to the center part of the bar. Default 0\n"
+				"\t-l --left LEFT\t\t\tSet LEFT identifiers to the left part of the bar. Default 0\n"
+				"\t-r --right RIGHT\t\tSet RIGHT identifiers to the right part of the bar. Default 0\n"
+				"\t-c --center CENTER\t\tSet CENTER identifiers to the center part of the bar. Default 0\n"
 				"\t-t --font FONT\t\t\tSet the default font to FONT. Default Sans-Serif Bold 9\n"
 				"\t-f --foreground FOREGROUND\tSet the default foreground color to FOREGROUND. Default #FFFFFF\n"
 				"\t-b --background BACKGROUND\tSet the default background color to BACKGROUND. Default #000000\n"
@@ -99,11 +94,11 @@ void options_init(int argc, char **argv)
 				"CENTER for the center. Each part is drawn left-to-right. Input must start with"
 				"the identifier and a non-digit character. e.g.:\n"
 				"\t%s --center 1 --left 2 --right 3\n"
-				"\t0 my info\n"
-				"\t3 info on right\n"
-				"\t4 more on right\n"
-				"\t5 center info\n"
-				"\t4 updated info\n"
+				"\tl0 my info\n"
+				"\tr1 info on right\n"
+				"\tr2 more on right\n"
+				"\tc0 center info\n"
+				"\tr2 updated info\n"
 				"Result: [my info][]				[center info]		[][info on right][updated info]\n"
 				,argv[0], argv[0]); 
 			exit(EXIT_SUCCESS);
