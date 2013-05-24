@@ -23,7 +23,9 @@
  */
 static bool init(int argc, char *argv[])
 {
-	options_init(argc, argv);
+	if (!options_init(argc, argv))
+		return false;
+
 	window_init(options.bar_height, options.bar_on_bottom, engine_refresh);
 
 	cairo_surface_t *surface = cairo_xcb_surface_create(

@@ -39,11 +39,11 @@ static void set_defaults()
 	options.default_background = strdup(DEFAULT_BACKGROUND);
 }
 
-void options_init(int argc, char **argv)
+bool options_init(int argc, char **argv)
 {
 	set_defaults();
 	while (1) {
-		int arg = getopt_long(argc, argv, "hu:l:r:c:mg:t:f:b:",
+		int arg = getopt_long(argc, argv, "hmg:t:f:b:",
 				long_options, NULL);
 		if (arg == -1)
 			break;
@@ -86,9 +86,10 @@ void options_init(int argc, char **argv)
 				"\tr2 updated info\n"
 				"Result: [my info][]				[center info]		[][info on right][updated info]\n"
 				,argv[0], argv[0]); 
-			exit(EXIT_SUCCESS);
+			return false;
 		}
 	}
+	return true;
 }
 
 void options_terminate()

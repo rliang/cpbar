@@ -21,8 +21,9 @@ extern struct options options;
  * Parses and initializes the options struct.
  * @param argc argc from the main function.
  * @param argv argv from the main function.
+ * @return whether options were correctly initialized.
  */
-void options_init(int argc, char **argv);
+bool options_init(int argc, char **argv);
 
 /*!
  * Frees resources allocated by options_init().
