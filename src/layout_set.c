@@ -39,6 +39,11 @@ PangoLayout *layout_set_get_layout(struct layout_set *set)
 	return set->layout;
 }
 
+/*!
+ * Ensures that the node contains a child.
+ * @param set the node.
+ * @returns the child node.
+ */
 static struct layout_set *layout_set_ensure_next(struct layout_set *set)
 {
 	if (set->list_next == NULL) {
@@ -48,6 +53,13 @@ static struct layout_set *layout_set_ensure_next(struct layout_set *set)
 	return set->list_next;
 }
 
+/*!
+ * Iterates over the layout_set list until the specified index.
+ * @param set the root node to iterate from.
+ * @index the amount of iterations.
+ * @return the last node iterated.
+ * @see layout_set_ensure_next
+ */
 static struct layout_set *layout_set_iterate_to(struct layout_set *set, int index)
 {
 	for (int i = 0; i < index; ++i) {
@@ -58,6 +70,10 @@ static struct layout_set *layout_set_iterate_to(struct layout_set *set, int inde
 	return set;
 }
 
+/*!
+ * Re-allocates a layout_set node's PangoLayout.
+ * @param set the node to replace the PangoLayout.
+ */
 static void layout_set_reset_layout(struct layout_set *set)
 {
 	PangoLayout *old = set->layout;

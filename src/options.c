@@ -25,7 +25,11 @@ static struct option long_options[] = {
 	{ "foreground", required_argument, 0, 'f' },
 	{ "background", required_argument, 0, 'b' }
 };
-
+ 
+/*!
+ * Initializes the options to their defaults, so they can be safely freed.
+ * @see options_terminate
+ */
 static void set_defaults()
 {
 	options.bar_height = DEFAULT_HEIGHT;

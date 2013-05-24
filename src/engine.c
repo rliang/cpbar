@@ -57,7 +57,13 @@ void engine_init_sets(const char *default_font,
 	center_set = layout_set_new(pango_context);
 }
 
-
+/*!
+ * Renders a single PangoLayout horizontally. Places text on the vertical
+ middle of the canvas.
+ * @param layout the PangoLayout to draw.
+ * @param x the X coordinate on the canvas to draw.
+ * @param text_height height of the text in pixels.
+ */
 static void engine_draw_text(PangoLayout *layout, int x, int text_height)
 {
 	cairo_set_source_rgba(cairo_context,
@@ -70,6 +76,13 @@ static void engine_draw_text(PangoLayout *layout, int x, int text_height)
 	pango_cairo_show_layout(cairo_context, layout);
 }
 
+/*!
+ * Draw a layout_set, from left to right.
+ * @param set the layout_set.
+ * @param lower_limit the X coordinate on the canvas to start drawing.
+ * @param upper_limit the X coordinate on the canvas to stop drawing.
+ * @see engine_draw_text
+ */
 static void engine_draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 {
 	for ( ; set != NULL; set = layout_set_get_next(set)) {
@@ -85,6 +98,11 @@ static void engine_draw_set(struct layout_set *set, int lower_limit, int upper_l
 	}
 }
 
+/*!
+ * Draws all the layout_sets. To prevent overlapping, the left set "pushes" the
+ center set to the right, and the right set always supercedes the others.
+ * @see engine_draw_set
+ */
 static void engine_draw_sets()
 {
 	int left_width = layout_set_get_pixel_width(left_set);
@@ -108,6 +126,9 @@ static void engine_draw_sets()
 	engine_draw_set(center_set, center_begin, center_end);
 }
 
+/*!
+ * Paints the canvas with the default background color.
+ */
 static void engine_clean_canvas()
 {
 	cairo_set_source_rgba(cairo_context,
@@ -117,6 +138,12 @@ static void engine_clean_canvas()
 	cairo_paint(cairo_context);
 }
 
+/*!
+ * Parses the first character from a string, and increments it.
+ * @param input the string to parse and increment.
+ * @param length the length of the string. Will be decremented.
+ * @return the parsed character.
+ */
 static char engine_parse_position(char **input, int *length)
 {
 	if (*length < 1)
@@ -130,6 +157,12 @@ static char engine_parse_position(char **input, int *length)
 	return position;
 }
 
+/*!
+ * Parses the first integer from a string, and increments it.
+ * @param input the string to parse and increment.
+ * @param length the length of the string. Will be decremented.
+ * @return the parsed integer.
+ */
 static int engine_parse_index(char **input, int *length)
 {
 	int i = 0;
@@ -145,6 +178,11 @@ static int engine_parse_index(char **input, int *length)
 	return index;
 }
 
+/*!
+ * Interprets a char to a layout_set.
+ * @param position the character.
+ * @return the layout_set interpreted, or NULL.
+ */
 static struct layout_set *engine_find_position(char position)
 {
 	switch (position) {
