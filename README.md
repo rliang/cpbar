@@ -9,9 +9,10 @@ Usage
 	pbar [-m] [-g HEIGHT] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
 
 This program displays three sets of textual information, on the left of the bar,
-right and center. Input must start with the position -- `l`, `r` or `c`; the
-index, and a non-digit separator character before the textual information.
-e.g.:
+right and center. Input must start with the position - `l`, `r` or `c`; the
+index, and a non-digit separator character before the textual information. Its
+main feature is keeping track of those, so one doesn't need to pipe everything
+on each update. e.g.:
 
 	$ pbar
 	l0 my info
