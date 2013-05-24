@@ -6,14 +6,14 @@ Lightweight XCB-based panel for displaying textual information from STDIN using 
 Usage
 -----
 
-	pbar [-m] [-g HEIGHT] [-l LEFT] [-r RIGHT] [-c CENTER] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
+	pbar [-m] [-g HEIGHT] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]
 
-Each position of the panel, left, right and center, get `LEFT`, `RIGHT` and
-`CENTER` identifiers, starting from zero. Each part is drawn left-to-right.
-Input must start with the position and the identifier and a non-digit character,
-before the textual information. e.g.:
+This program displays three sets of textual information, on the left of the bar,
+right and center. Input must start with the position -- `l`, `r` or `c`; the
+index, and a non-digit separator character before the textual information.
+e.g.:
 
-	$ pbar --center 1 --left 2 --right 3
+	$ pbar
 	l0 my info
 	r1 info on right
 	r2 more on right
@@ -35,12 +35,6 @@ Options
 
 `-g --height HEIGHT` Set bar height to `HEIGHT`. Default `16`
 
-`-l --left LEFT` Set `LEFT` identifiers to the left part of the bar. Default `0`
-
-`-r --right RIGHT` Set `RIGHT` identifiers to the right part of the bar. Default `0`
-
-`-c --center CENTER` Set `CENTER` identifiers to the center part of the bar. Default `0`
-
 `-t --font FONT` Set the default font to `FONT`. Default `Sans-Serif Bold 9`
 
 `-f --foreground FOREGROUND` Set the default foreground color to `FOREGROUND`. Default `#FFFFFF`
@@ -52,4 +46,3 @@ To Do:
 
 * PKGBUILD
 * Improve parsing functions
-* Dynamically-allocated identifiers

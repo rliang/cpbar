@@ -8,7 +8,6 @@
 #include <stdbool.h>
 
 struct options {
-	int sizes[3];
 	uint16_t bar_height;
 	bool bar_on_bottom;
 	char *default_font;
