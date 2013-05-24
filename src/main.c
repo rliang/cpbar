@@ -33,7 +33,7 @@ static bool init(int argc, char *argv[])
 	if (!engine_init_canvas(surface, window.width, window.height))
 		return false;
 
-	engine_init_sets(options.sizes, options.default_font,
+	engine_init_sets(options.default_font,
 			options.default_foreground, options.default_background);
 
 	window_flush();

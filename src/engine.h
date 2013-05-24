@@ -26,7 +26,7 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height);
  format.
  * @see engine_init_canvas()
  */
-void engine_init_sets(const int sizes[3], const char *default_font,
+void engine_init_sets(const char *default_font,
 		const char *foreground, const char *background);
 
 /*!
