@@ -18,7 +18,6 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height);
 /*!
  * Initializes the engine's sets, later updated with engine_update(). Must be
  called after engine_init_canvas().
- * @param sizes lengths of left, right and center's sets, respectively.
  * @param default_font string containing the default font to be used.
  * @param foreground string containing the default foreground, in #rrggbb
  format.

@@ -58,7 +58,7 @@ void engine_init_sets(const char *default_font,
 }
 
 
-static void draw_text(PangoLayout *layout, int x, int text_height)
+static void engine_draw_text(PangoLayout *layout, int x, int text_height)
 {
 	cairo_set_source_rgba(cairo_context,
 			default_foreground[0],
@@ -70,7 +70,7 @@ static void draw_text(PangoLayout *layout, int x, int text_height)
 	pango_cairo_show_layout(cairo_context, layout);
 }
 
-static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
+static void engine_draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 {
 	for ( ; set != NULL; set = layout_set_get_next(set)) {
 		PangoLayout *current = layout_set_get_layout(set);
@@ -80,12 +80,12 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 		pango_layout_set_width(current,
 				(1 + upper_limit - lower_limit) * PANGO_SCALE);
 
-		draw_text(current, lower_limit, height);
+		engine_draw_text(current, lower_limit, height);
 		lower_limit += width;
 	}
 }
 
-static void draw_sets()
+static void engine_draw_sets()
 {
 	int left_width = layout_set_get_pixel_width(left_set);
 	int right_width = layout_set_get_pixel_width(right_set);
@@ -93,22 +93,22 @@ static void draw_sets()
 
 	int right_begin = canvas_width - right_width;
 	int right_end = canvas_width;
-	draw_set(right_set, right_begin, right_end);
+	engine_draw_set(right_set, right_begin, right_end);
 
 	int left_begin = 0;
 	int left_end = left_width;
 	if (left_end > right_begin)
 		left_end = right_begin;
-	draw_set(left_set, left_begin, left_end);
+	engine_draw_set(left_set, left_begin, left_end);
 
 	int center_begin = (canvas_width - center_width) / 2;
 	if (center_begin < left_end)
 		center_begin = left_end;
 	int center_end = right_begin;
-	draw_set(center_set, center_begin, center_end);
+	engine_draw_set(center_set, center_begin, center_end);
 }
 
-static void clean_canvas()
+static void engine_clean_canvas()
 {
 	cairo_set_source_rgba(cairo_context,
 			 default_background[0],
@@ -194,8 +194,8 @@ void engine_input_wait()
 
 void engine_refresh()
 {
-	clean_canvas();
-	draw_sets();
+	engine_clean_canvas();
+	engine_draw_sets();
 }
 
 void engine_terminate()
