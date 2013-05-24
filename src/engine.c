@@ -7,23 +7,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "layout_set.h"
 #include "utils.h"
-
-struct layout_set {
-	PangoLayout **layout_list;
-	int length;
-};
-
-static struct layout_set sets[3];
 
 static cairo_t *cairo_context;
 static PangoContext *pango_context;
 
-static int canvas_width;
-static int canvas_height;
+static struct layout_set *left_set = NULL;
+static struct layout_set *right_set = NULL;
+static struct layout_set *center_set = NULL;
 
 static double default_foreground[3];
 static double default_background[3];
+
+static int canvas_width;
+static int canvas_height;
 
 bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 {
@@ -44,28 +42,6 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 	return true;
 }
 
-static bool create_layout(PangoLayout **location)
-{
-	if (location == NULL)
-		return false;
-	if (*location != NULL)
-		g_object_unref(*location);
-
-	*location = pango_layout_new(pango_context);
-	pango_layout_set_ellipsize(*location, PANGO_ELLIPSIZE_END);
-
-	return true;
-}
-
-static void init_set(struct layout_set *set, int length)
-{
-	set->layout_list = calloc(length, sizeof(PangoLayout *));
-	set->length = length;
-
-	for (int j = 0; j < length; ++j)
-		create_layout(&set->layout_list[j]);
-}
-
 void engine_init_sets(const int sizes[3], const char *default_font,
 		const char *foreground, const char *background)
 {
@@ -76,20 +52,11 @@ void engine_init_sets(const int sizes[3], const char *default_font,
 	parse_color(foreground, default_foreground);
 	parse_color(background, default_background);
 
-	for (int i = 0; i < 3; ++i)
-		init_set(&sets[i], sizes[i]);
+	left_set = layout_set_new(pango_context);
+	right_set = layout_set_new(pango_context);
+	center_set = layout_set_new(pango_context);
 }
 
-static int get_set_width(struct layout_set *set)
-{
-	int total = 0;
-	for (int i = 0; i < set->length; ++i) {
-		int width = 0;
-		pango_layout_get_pixel_size(set->layout_list[i], &width, NULL);
-		total += width;
-	}
-	return total;
-}
 
 static void draw_text(PangoLayout *layout, int x, int text_height)
 {
@@ -105,8 +72,8 @@ static void draw_text(PangoLayout *layout, int x, int text_height)
 
 static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 {
-	for (int i = 0; i < set->length; ++i) {
-		PangoLayout *current = set->layout_list[i];
+	for ( ; set != NULL; set = layout_set_get_next(set)) {
+		PangoLayout *current = layout_set_get_layout(set);
 
 		int width, height;
 		pango_layout_get_pixel_size(current, &width, &height);
@@ -120,25 +87,25 @@ static void draw_set(struct layout_set *set, int lower_limit, int upper_limit)
 
 static void draw_sets()
 {
-	int left_width = get_set_width(&sets[0]);
-	int right_width = get_set_width(&sets[1]);
-	int center_width = get_set_width(&sets[2]);
+	int left_width = layout_set_get_pixel_width(left_set);
+	int right_width = layout_set_get_pixel_width(right_set);
+	int center_width = layout_set_get_pixel_width(center_set);
 
 	int right_begin = canvas_width - right_width;
 	int right_end = canvas_width;
-	draw_set(&sets[1], right_begin, right_end);
+	draw_set(right_set, right_begin, right_end);
 
 	int left_begin = 0;
 	int left_end = left_width;
 	if (left_end > right_begin)
 		left_end = right_begin;
-	draw_set(&sets[0], left_begin, left_end);
+	draw_set(left_set, left_begin, left_end);
 
 	int center_begin = (canvas_width - center_width) / 2;
 	if (center_begin < left_end)
 		center_begin = left_end;
 	int center_end = right_begin;
-	draw_set(&sets[2], center_begin, center_end);
+	draw_set(center_set, center_begin, center_end);
 }
 
 static void clean_canvas()
@@ -178,15 +145,15 @@ static int engine_parse_index(char **input, int *length)
 	return index;
 }
 
-static struct layout_set *engine_find_set(char position)
+static struct layout_set *engine_find_position(char position)
 {
 	switch (position) {
 	case 'l':
-		return &sets[0];
+		return left_set;
 	case 'r':
-		return &sets[1];
+		return right_set;
 	case 'c':
-		return &sets[2];
+		return center_set;
 	}
 	return NULL;
 }
@@ -200,17 +167,15 @@ void engine_update(char *input, int length)
 	if (position == '\0')
 		return;
 
-	struct layout_set *set = engine_find_set(position);
+	struct layout_set *set = engine_find_position(position);
 	if (set == NULL)
 		return;
 
 	int index = engine_parse_index(&input, &length);
-	if (index < 0 || index >= set->length)
+	if (index < 0)
 		return;
 
-	PangoLayout **layout_location = &set->layout_list[index];
-	create_layout(layout_location);
-	pango_layout_set_markup(*layout_location, input, -1);
+	layout_set_text_update(set, index, input);
 
 	engine_refresh();
 }
@@ -238,9 +203,7 @@ void engine_terminate()
 	cairo_destroy(cairo_context);
 	g_object_unref(pango_context);
 
-	for (int i = 0; i < 3; ++i) {
-		for (int j = 0; j < sets[i].length; ++j)
-			g_object_unref(sets[i].layout_list[j]);
-		free(sets[i].layout_list);
-	}
+	layout_set_destroy(left_set);
+	layout_set_destroy(right_set);
+	layout_set_destroy(center_set);
 }
