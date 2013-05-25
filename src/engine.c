@@ -11,7 +11,6 @@
 #include "utils.h"
 
 static cairo_t *cairo_context;
-static PangoContext *pango_context;
 
 static struct layout_set *left_set = NULL;
 static struct layout_set *right_set = NULL;
@@ -34,8 +33,6 @@ bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
 	if (cairo_status(cairo_context) != CAIRO_STATUS_SUCCESS)
 		return false;
 
-	pango_context = pango_cairo_create_context(cairo_context);
-
 	canvas_width = width;
 	canvas_height = height;
 
@@ -47,6 +44,8 @@ void engine_init_sets(const char *default_font,
 {
 	PangoFontDescription *font =
 		pango_font_description_from_string(default_font);
+	PangoContext *pango_context =
+		pango_cairo_create_context(cairo_context);
 	pango_context_set_font_description(pango_context, font);
 
 	parse_color(foreground, default_foreground);
@@ -239,7 +238,6 @@ void engine_refresh()
 void engine_terminate()
 {
 	cairo_destroy(cairo_context);
-	g_object_unref(pango_context);
 
 	layout_set_destroy(left_set);
 	layout_set_destroy(right_set);
