@@ -7,13 +7,14 @@
 #include <pango/pangocairo.h>
 
 /*!
- * Initializes the engine's canvas to draw into.
- * @param surface pointer to the Cairo surface to create the canvas from.
+ * Initializes the engine's canvas to draw size_to.
+ * @param surface posize_ter to the Cairo surface to create the canvas from.
  * @param width width of the canvas.
  * @param height height of the canvas.
  * @return true on success, false otherwise.
  */
-bool engine_init_canvas(cairo_surface_t *surface, int width, int height);
+bool engine_init_canvas(cairo_surface_t *surface,
+		unsigned int width, unsigned int height);
 
 /*!
  * Initializes the engine's sets, later updated with engine_update(). Must be

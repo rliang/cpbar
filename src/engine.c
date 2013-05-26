@@ -19,10 +19,11 @@ static struct layout_set *center_set = NULL;
 static double default_foreground[3];
 static double default_background[3];
 
-static int canvas_width;
-static int canvas_height;
+static unsigned int canvas_width;
+static unsigned int canvas_height;
 
-bool engine_init_canvas(cairo_surface_t *surface, int width, int height)
+bool engine_init_canvas(cairo_surface_t *surface,
+		unsigned int width, unsigned int height)
 {
 	if (cairo_surface_status(surface) != CAIRO_STATUS_SUCCESS)
 		return false;
@@ -63,7 +64,8 @@ void engine_init_sets(const char *default_font,
  * @param x the X coordinate on the canvas to draw.
  * @param text_height height of the text in pixels.
  */
-static void engine_draw_text(PangoLayout *layout, int x, int text_height)
+static void engine_draw_text(PangoLayout *layout,
+		int x, unsigned int text_height)
 {
 	cairo_set_source_rgba(cairo_context,
 			default_foreground[0],
@@ -82,7 +84,8 @@ static void engine_draw_text(PangoLayout *layout, int x, int text_height)
  * @param upper_limit the X coordinate on the canvas to stop drawing.
  * @see engine_draw_text
  */
-static void engine_draw_set(struct layout_set *set, int lower_limit, int upper_limit)
+static void engine_draw_set(struct layout_set *set,
+		int lower_limit, int upper_limit)
 {
 	for ( ; set != NULL; set = layout_set_get_next(set)) {
 		PangoLayout *current = layout_set_get_layout(set);
@@ -104,9 +107,9 @@ static void engine_draw_set(struct layout_set *set, int lower_limit, int upper_l
  */
 static void engine_draw_sets()
 {
-	int left_width = layout_set_get_pixel_width(left_set);
-	int right_width = layout_set_get_pixel_width(right_set);
-	int center_width = layout_set_get_pixel_width(center_set);
+	unsigned int left_width = layout_set_get_pixel_width(left_set);
+	unsigned int right_width = layout_set_get_pixel_width(right_set);
+	unsigned int center_width = layout_set_get_pixel_width(center_set);
 
 	int right_begin = canvas_width - right_width;
 	int right_end = canvas_width;
@@ -143,7 +146,7 @@ static void engine_clean_canvas()
  * @param length the length of the string. Will be decremented.
  * @return the parsed character.
  */
-static char engine_parse_position(char **input, int *length)
+static char engine_parse_position(char **input, size_t *length)
 {
 	if (*length < 1)
 		return '\0';
@@ -157,19 +160,19 @@ static char engine_parse_position(char **input, int *length)
 }
 
 /*!
- * Parses the first integer from a string, and increments it.
+ * Parses the first size_teger from a string, and increments it.
  * @param input the string to parse and increment.
  * @param length the length of the string. Will be decremented.
- * @return the parsed integer.
+ * @return the parsed size_teger.
  */
-static int engine_parse_index(char **input, int *length)
+static size_t engine_parse_index(char **input, size_t *length)
 {
-	int i = 0;
+	size_t i = 0;
 	while (i < *length && isdigit((*input)[i]))
 		i += 1;
 
 	(*input)[i] = '\0';
-	int index = atoi(*input);
+	size_t index = atoi(*input);
 
 	*length -= i + 1;
 	*input += i + 1;
@@ -178,9 +181,9 @@ static int engine_parse_index(char **input, int *length)
 }
 
 /*!
- * Interprets a char to a layout_set.
+ * size_terprets a char to a layout_set.
  * @param position the character.
- * @return the layout_set interpreted, or NULL.
+ * @return the layout_set size_terpreted, or NULL.
  */
 static struct layout_set *engine_find_position(char position)
 {
@@ -195,7 +198,7 @@ static struct layout_set *engine_find_position(char position)
 	return NULL;
 }
 
-void engine_update(char *input, int length)
+void engine_update(char *input, size_t length)
 {
 	if (length < 3)
 		return;
@@ -208,9 +211,7 @@ void engine_update(char *input, int length)
 	if (set == NULL)
 		return;
 
-	int index = engine_parse_index(&input, &length);
-	if (index < 0)
-		return;
+	size_t index = engine_parse_index(&input, &length);
 
 	layout_set_text_update(set, index, input);
 
@@ -219,7 +220,7 @@ void engine_update(char *input, int length)
 
 void engine_input_wait()
 {
-	int length = BUFSIZ;
+	size_t length = BUFSIZ;
 	char buffer[length];
 
 	if (fgets(buffer, length, stdin) == NULL)

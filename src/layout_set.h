@@ -31,14 +31,15 @@ PangoLayout *layout_set_get_layout(struct layout_set *set);
  * @param index the index of the node.
  * @param text the string containing the Pango markup.
  */
-void layout_set_text_update(struct layout_set *set, int index, const char *text);
+void layout_set_text_update(struct layout_set *set,
+		size_t index, const char *text);
 
 /*!
  * Iterates over the children nodes, adding up the total width.
  * @param set the root layout_set to iterate from.
  * @return the total width in pixels.
  */
-int layout_set_get_pixel_width(struct layout_set *set);
+unsigned int layout_set_get_pixel_width(struct layout_set *set);
 
 /*!
  * Returns the next child node.

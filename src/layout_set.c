@@ -60,9 +60,10 @@ static struct layout_set *layout_set_ensure_next(struct layout_set *set)
  * @return the last node iterated.
  * @see layout_set_ensure_next
  */
-static struct layout_set *layout_set_iterate_to(struct layout_set *set, int index)
+static struct layout_set *layout_set_iterate_to(struct layout_set *set,
+		size_t index)
 {
-	for (int i = 0; i < index; ++i) {
+	for (size_t i = 0; i < index; ++i) {
 		layout_set_ensure_next(set);
 		set = set->list_next;
 	}
@@ -86,16 +87,16 @@ static void layout_set_reset_layout(struct layout_set *set)
 }
 
 void layout_set_text_update(struct layout_set *set,
-		int index, const char *text)
+		size_t index, const char *text)
 {
 	set = layout_set_iterate_to(set, index);
 	layout_set_reset_layout(set);
 	pango_layout_set_markup(set->layout, text, -1);
 }
 
-int layout_set_get_pixel_width(struct layout_set *set)
+unsigned int layout_set_get_pixel_width(struct layout_set *set)
 {
-	int total = 0;
+	unsigned int total = 0;
 	for ( ; set != NULL; set = set->list_next) {
 		int width = 0;
 		pango_layout_get_pixel_size(set->layout, &width, NULL);
