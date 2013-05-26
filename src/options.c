@@ -103,16 +103,14 @@ struct options *options_new(int argc, char **argv)
 
 void options_destroy(struct options *options)
 {
-	if (options->default_font != NULL) {
-		free(options->default_font);
-		options->default_font = NULL;
-	}
-	if (options->default_foreground != NULL) {
-		free(options->default_foreground);
-		options->default_foreground = NULL;
-	}
-	if (options->default_background != NULL) {
-		free(options->default_background);
-		options->default_background = NULL;
-	}
+	char *strings[] = {
+		options->default_font,
+		options->default_foreground,
+		options->default_background
+	};
+
+	for (int i = 0; i < 3; ++i)
+		free(strings[i]);
+
+	free(options);
 }
