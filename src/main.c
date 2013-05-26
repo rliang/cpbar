@@ -23,10 +23,11 @@
  */
 static bool init(int argc, char *argv[])
 {
-	if (!options_init(argc, argv))
+	struct options *options = options_new(argc, argv);
+	if (options == NULL)
 		return false;
 
-	window_init(options.bar_height, options.bar_on_bottom, engine_refresh);
+	window_init(options->bar_height, options->bar_on_bottom, engine_refresh);
 
 	cairo_surface_t *surface = cairo_xcb_surface_create(
 			window.xcb_connection, window.xcb_window,
@@ -35,8 +36,10 @@ static bool init(int argc, char *argv[])
 	if (!engine_init_canvas(surface, window.width, window.height))
 		return false;
 
-	engine_init_sets(options.default_font,
-			options.default_foreground, options.default_background);
+	engine_init_sets(options->default_font,
+			options->default_foreground, options->default_background);
+
+	options_destroy(options);
 
 	window_flush();
 	return true;
@@ -76,7 +79,6 @@ static void main_loop()
  */
 static void terminate()
 {
-	options_terminate();
 	engine_terminate();
 	window_terminate();
 }

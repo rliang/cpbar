@@ -15,19 +15,17 @@ struct options {
 	char *default_background;
 };
 
-extern struct options options;
-
 /*!
  * Parses and initializes the options struct.
  * @param argc argc from the main function.
  * @param argv argv from the main function.
- * @return whether options were correctly initialized.
+ * @return the newly allocated options, or NULL.
  */
-bool options_init(int argc, char **argv);
+struct options *options_new(int argc, char **argv);
 
 /*!
- * Frees resources allocated by options_init().
+ * Frees resources allocated by options_new().
  */
-void options_terminate();
+void options_destroy(struct options *options);
 
 #endif /* OPTIONS_H */

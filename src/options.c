@@ -15,33 +15,40 @@
 #define DEFAULT_FOREGROUND "#ffffff"
 #define DEFAULT_BACKGROUND "#000000"
 
-struct options options;
-
-static struct option long_options[] = {
-	{ "help", no_argument, 0, 'h' },
-	{ "height", required_argument, 0, 'g' },
-	{ "bottom", no_argument, 0, 'm' },
-	{ "font", required_argument, 0, 't' },
-	{ "foreground", required_argument, 0, 'f' },
-	{ "background", required_argument, 0, 'b' }
-};
- 
 /*!
- * Initializes the options to their defaults, so they can be safely freed.
- * @see options_terminate
+ * Allocates and sets options to their defaults, so they can be safely freed.
+ * @see options_destroy
  */
-static void set_defaults()
+static struct options *options_allocate()
 {
-	options.bar_height = DEFAULT_HEIGHT;
-	options.bar_on_bottom = DEFAULT_ON_BOTTOM;
-	options.default_font = strdup(DEFAULT_FONT);
-	options.default_foreground = strdup(DEFAULT_FOREGROUND);
-	options.default_background = strdup(DEFAULT_BACKGROUND);
+	struct options *new = malloc(sizeof(struct options));
+	if (new == NULL)
+		return NULL;
+
+	new->bar_height = DEFAULT_HEIGHT;
+	new->bar_on_bottom = DEFAULT_ON_BOTTOM;
+	new->default_font = strdup(DEFAULT_FONT);
+	new->default_foreground = strdup(DEFAULT_FOREGROUND);
+	new->default_background = strdup(DEFAULT_BACKGROUND);
+
+	return new;
 }
 
-bool options_init(int argc, char **argv)
+struct options *options_new(int argc, char **argv)
 {
-	set_defaults();
+	struct options *options = options_allocate();
+	if (options == NULL)
+		return NULL;
+
+	struct option long_options[] = {
+		{ "help", no_argument, 0, 'h' },
+		{ "height", required_argument, 0, 'g' },
+		{ "bottom", no_argument, 0, 'm' },
+		{ "font", required_argument, 0, 't' },
+		{ "foreground", required_argument, 0, 'f' },
+		{ "background", required_argument, 0, 'b' }
+	};
+
 	while (1) {
 		int arg = getopt_long(argc, argv, "hmg:t:f:b:",
 				long_options, NULL);
@@ -49,22 +56,22 @@ bool options_init(int argc, char **argv)
 			break;
 		switch (arg) {
 		case 'g':
-			options.bar_height = atoi(optarg);
+			options->bar_height = atoi(optarg);
 			break;
 		case 'm':
-			options.bar_on_bottom = true;
+			options->bar_on_bottom = true;
 			break;
 		case 't':
-			free(options.default_font);
-			options.default_font = strdup(optarg);
+			free(options->default_font);
+			options->default_font = strdup(optarg);
 			break;
 		case 'f':
-			free(options.default_foreground);
-			options.default_foreground = strdup(optarg);
+			free(options->default_foreground);
+			options->default_foreground = strdup(optarg);
 			break;
 		case 'b':
-			free(options.default_background);
-			options.default_background = strdup(optarg);
+			free(options->default_background);
+			options->default_background = strdup(optarg);
 			break;
 		default:
 			printf("Usage: %s pbar [-h] [-m] [-g HEIGHT] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]\n"
@@ -86,24 +93,26 @@ bool options_init(int argc, char **argv)
 				"\tr2 updated info\n"
 				"Result: [my info][]				[center info]		[][info on right][updated info]\n"
 				,argv[0], argv[0]); 
-			return false;
+			options_destroy(options);
+			return NULL;
 		}
 	}
-	return true;
+
+	return options;
 }
 
-void options_terminate()
+void options_destroy(struct options *options)
 {
-	if (options.default_font != NULL) {
-		free(options.default_font);
-		options.default_font = NULL;
+	if (options->default_font != NULL) {
+		free(options->default_font);
+		options->default_font = NULL;
 	}
-	if (options.default_foreground != NULL) {
-		free(options.default_foreground);
-		options.default_foreground = NULL;
+	if (options->default_foreground != NULL) {
+		free(options->default_foreground);
+		options->default_foreground = NULL;
 	}
-	if (options.default_background != NULL) {
-		free(options.default_background);
-		options.default_background = NULL;
+	if (options->default_background != NULL) {
+		free(options->default_background);
+		options->default_background = NULL;
 	}
 }
