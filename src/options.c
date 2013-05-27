@@ -14,6 +14,26 @@
 #define DEFAULT_FONT "Sans-Serif Bold 9"
 #define DEFAULT_FOREGROUND "#ffffff"
 #define DEFAULT_BACKGROUND "#000000"
+#define USAGE "\
+Usage: %s pbar [-h] [-m] [-g HEIGHT] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]\n\
+\t-h --help\t\t\tDisplay this help\n\
+\t-m --bottom\t\t\tPlace bar on the bottom of the screen\n\
+\t-g --height HEIGHT\t\tSet bar height to HEIGHT. Default 16\n\
+\t-t --font FONT\t\t\tSet the default font to FONT. Default Sans-Serif Bold 9\n\
+\t-f --foreground FOREGROUND\tSet the default foreground color to FOREGROUND. Default #FFFFFF\n\
+\t-b --background BACKGROUND\tSet the default background color to BACKGROUND. Default #000000\n\
+\nThis program displays three sets of textual information, on the left of the bar,\
+right and center. Input must start with the position -- 'l', 'r' or 'c'; the\
+index, and a non-digit separator character before the textual information.\
+e.g.:\n\
+\t$ %s\n\
+\tl0 my info\n\
+\tr1 info on right\n\
+\tr2 more on right\n\
+\tc0 center info\n\
+\tr2 updated info\n\
+Result: [my info][]				[center info]		[][info on right][updated info]\n\
+"
 
 /*!
  * Allocates and sets options to their defaults, so they can be safely freed.
@@ -74,25 +94,7 @@ struct options *options_new(int argc, char **argv)
 			options->default_background = strdup(optarg);
 			break;
 		default:
-			printf("Usage: %s pbar [-h] [-m] [-g HEIGHT] [-t FONT] [-f FOREGROUND] [-b BACKGROUND]\n"
-				"\t-h --help\t\t\tDisplay this help\n"
-				"\t-m --bottom\t\t\tPlace bar on the bottom of the screen\n"
-				"\t-g --height HEIGHT\t\tSet bar height to HEIGHT. Default 16\n"
-				"\t-t --font FONT\t\t\tSet the default font to FONT. Default Sans-Serif Bold 9\n"
-				"\t-f --foreground FOREGROUND\tSet the default foreground color to FOREGROUND. Default #FFFFFF\n"
-				"\t-b --background BACKGROUND\tSet the default background color to BACKGROUND. Default #000000\n"
-				"\nThis program displays three sets of textual information, on the left of the bar,"
-				"right and center. Input must start with the position -- 'l', 'r' or 'c'; the"
-				"index, and a non-digit separator character before the textual information."
-				"e.g.:\n"
-				"\t$ %s\n"
-				"\tl0 my info\n"
-				"\tr1 info on right\n"
-				"\tr2 more on right\n"
-				"\tc0 center info\n"
-				"\tr2 updated info\n"
-				"Result: [my info][]				[center info]		[][info on right][updated info]\n"
-				,argv[0], argv[0]); 
+			printf(USAGE, argv[0], argv[0]); 
 			options_destroy(options);
 			return NULL;
 		}
