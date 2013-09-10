@@ -45,3 +45,5 @@ void engine_refresh();
 void engine_terminate();
 
 #endif /* ENGINE_H */
+
+/* vim: set ts=4 sw=4 noet: */

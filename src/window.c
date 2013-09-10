@@ -110,3 +110,5 @@ void window_terminate()
 	xcb_destroy_window(window.xcb_connection, window.xcb_window);
 	xcb_disconnect(window.xcb_connection);
 }
+
+/* vim: set ts=4 sw=4 noet: */

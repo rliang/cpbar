@@ -116,3 +116,5 @@ int main(int argc, char *argv[])
 	if (init(argc, argv))
 		main_loop();
 }
+
+/* vim: set ts=4 sw=4 noet: */

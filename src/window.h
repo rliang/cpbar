@@ -43,3 +43,5 @@ void window_flush();
 void window_terminate();
 
 #endif /* WINDOW_H */
+
+/* vim: set ts=4 sw=4 noet: */

@@ -21,3 +21,5 @@ char *strdup(const char *string);
 void parse_color(const char *string, double output[3]);
 
 #endif /* UTILS_H */
+
+/* vim: set ts=4 sw=4 noet: */

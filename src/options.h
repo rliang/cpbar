@@ -29,3 +29,5 @@ struct options *options_new(int argc, char **argv);
 void options_destroy(struct options *options);
 
 #endif /* OPTIONS_H */
+
+/* vim: set ts=4 sw=4 noet: */

@@ -264,3 +264,5 @@ void engine_terminate()
 	layout_set_destroy(right_set);
 	layout_set_destroy(center_set);
 }
+
+/* vim: set ts=4 sw=4 noet: */

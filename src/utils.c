@@ -47,3 +47,5 @@ void parse_color(const char *string, double output[3])
 	output[1] = a[1] / 255.0;
 	output[2] = a[2] / 255.0;
 }
+
+/* vim: set ts=4 sw=4 noet: */

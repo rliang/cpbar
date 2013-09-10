@@ -49,3 +49,5 @@ unsigned int layout_set_get_pixel_width(struct layout_set *set);
 struct layout_set *layout_set_get_next(struct layout_set *set);
 
 #endif /* LAYOUT_SET_H */
+
+/* vim: set ts=4 sw=4 noet: */

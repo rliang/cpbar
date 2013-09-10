@@ -131,3 +131,5 @@ struct layout_set *layout_set_get_next(struct layout_set *set)
 {
 	return set->list_next;
 }
+
+/* vim: set ts=4 sw=4 noet: */

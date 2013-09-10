@@ -138,3 +138,5 @@ void options_destroy(struct options *options)
 
 	free(options);
 }
+
+/* vim: set ts=4 sw=4 noet: */
